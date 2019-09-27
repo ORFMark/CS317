@@ -1,8 +1,94 @@
-Script started on Fri 27 Sep 2019 01:32:30 PM MST
-[?1034hsh-4.2$ mysql -u burrelm1 -p
+Script started on Fri 27 Sep 2019 03:12:50 PM MST
+[?1034hsh-4.2$ cat -n mrb_assign2_queries.sql
+     1	/* Question 1 Part A */
+     2	SELECT CONCAT(customers.first_name, ' ', customers.last_name) as customer, sum(receipts.amount) as total_purchase FROM (customers 
+     3	INNER JOIN receipts ON receipts.customer_id = customers.customer_id)
+     4	GROUP BY customers.customer_id
+     5	ORDER BY total_purchase DESC
+     6	LIMIT 4;
+     7	
+     8	
+     9	
+    10	/* Question 1 Part B */
+    11	SELECT CONCAT(customers.first_name, ' ', customers.last_name) as customer, AVG(receipts.amount) as average_purchase FROM (customers 
+    12	INNER JOIN receipts ON receipts.customer_id = customers.customer_id)
+    13	GROUP BY customers.customer_id
+    14	ORDER BY average_purchase DESC
+    15	LIMIT 5;
+    16	
+    17	
+    18	
+    19	/* Question 1 Part C */
+    20	SELECT CONCAT(customers.first_name, ' ', customers.last_name) as customer, COUNT(receipts.amount) as number_of_purchases FROM (customers 
+    21	INNER JOIN receipts ON receipts.customer_id = customers.customer_id)
+    22	GROUP BY customers.customer_id
+    23	ORDER BY number_of_purchases DESC
+    24	LIMIT 3;
+    25	
+    26	
+    27	
+    28	/*Question 1 Part D */
+    29	SELECT purchase_date as day, COUNT(amount) as number_of_purchases FROM receipts
+    30	GROUP BY purchase_date
+    31	ORDER BY number_of_purchases DESC
+    32	LIMIT 1;
+    33	
+    34	
+    35	
+    36	/*Question 1 Part E */
+    37	SELECT purchase_date as day, SUM(amount) as profit FROM receipts
+    38	GROUP BY purchase_date
+    39	ORDER BY profit DESC
+    40	LIMIT 1;
+    41	
+    42	
+    43	/*Question 1 Part F */
+    44	SELECT  CONCAT(customers.first_name, ' ', customers.last_name) as customer, receipts.purchase_date as day, SUM(receipts.amount) as total_purchase 
+    45	FROM ((receipts INNER JOIN (SELECT purchase_date as busiest_day, COUNT(amount) as purchases FROM receipts
+    46	        GROUP BY purchase_date
+    47	        ORDER BY purchases DESC
+    48	        LIMIT 1) as temp on receipts.purchase_date = temp.busiest_day)
+    49	INNER JOIN customers ON customers.customer_id = receipts.customer_id)
+    50	GROUP BY purchase_date, receipts.customer_id
+    51	ORDER BY total_purchase DESC;
+    52	
+    53	
+    54	/*Question 1 Part G*/
+    55	SELECT CONCAT(customers.first_name, ' ', customers.last_name) as customer FROM ((customers
+    56	INNER JOIN receipts on receipts.customer_id = customers.customer_id)
+    57	INNER JOIN (SELECT purchase_date as busiest_day, COUNT(amount) as purchases FROM receipts
+    58	        GROUP BY purchase_date
+    59	        ORDER BY purchases DESC
+    60	        LIMIT 1) as temp on receipts.purchase_date = temp.busiest_day)
+    61	GROUP BY customers.customer_id
+    62	ORDER BY customers.customer_id DESC;
+    63	
+    64	
+    65	/*Question 2 Part A */ 
+    66	SELECT COUNT(*) AS sibling_pairs FROM (SELECT last_name, COUNT(*) AS siblings FROM students
+    67	GROUP BY last_name,street_address, city) as temp WHERE temp.siblings >1;
+    68	
+    69	
+    70	/* Question 2 Part B */ 
+    71	SELECT students.first_name, students.last_name FROM students
+    72	INNER JOIN (SELECT * FROM (SELECT last_name, street_address, COUNT(*) AS siblings FROM students
+    73	GROUP BY last_name,street_address, city) as temp WHERE temp.siblings >1) as sibling_table 
+    74	ON sibling_table.last_name = students.last_name AND sibling_table.street_address = students.street_address;
+    75	
+    76	
+    77	/* Question 2 Part C */
+    78	SELECT COUNT(*) as twin_sets FROM (SELECT last_name, COUNT(*) AS siblings FROM students
+    79	GROUP BY last_name,street_address, city, birthday) as temp WHERE temp.siblings >1;
+    80	
+    81	/* Question 2 Part D */
+    82	SELECT students.first_name, students.last_name FROM students
+    83	INNER JOIN (SELECT * FROM (SELECT last_name, street_address, COUNT(*) AS siblings FROM students
+    84	GROUP BY last_name,street_address, city, birthday) as temp WHERE temp.siblings >1) as sibling_table 
+    85	ON sibling_table.last_name = students.last_name AND sibling_table.street_address = students.street_address;
+sh-4.2$ myds[K[Ksql -u burrelm1_db[K[K[K -p
 Enter password: 
 Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 1326
+Your MySQL connection id is 1340
 Server version: 5.6.42 MySQL Community Server (GPL)
 
 Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
@@ -13,40 +99,11 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-mysql> source customers.sql
-ERROR 1046 (3D000): No database selected
-ERROR 1046 (3D000): No database selected
-mysql> use burrelm1_db
+mysql> use burrelm1_db
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
 Database changed
-mysql> dource[K[K[K[K[K[Ksor[Kurce customers.sql
-Query OK, 0 rows affected (0.05 sec)
-
-Query OK, 15 rows affected (0.01 sec)
-Records: 15  Duplicates: 0  Warnings: 0
-
-mysql> soiur[K[K[Kurce students.sql
-ERROR: 
-No query specified
-
-ERROR: 
-No query specified
-
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'names of students who are twins or triplets
-DROP TABLE IF EXISTS students' at line 1
-Query OK, 0 rows affected (0.02 sec)
-
-Query OK, 11 rows affected (0.01 sec)
-Records: 11  Duplicates: 0  Warnings: 0
-
-mysql> source receipts.sql
-Query OK, 0 rows affected (0.03 sec)
-
-Query OK, 500 rows affected (0.00 sec)
-Records: 500  Duplicates: 0  Warnings: 0
-
 mysql> source mrb_assign2_queries.sql
 +----------------+----------------+
 | customer       | total_purchase |
@@ -73,10 +130,10 @@ mysql> source mrb_assign2_queries.sql
 | customer    | number_of_purchases |
 +-------------+---------------------+
 | Carl Orf    |                  49 |
-| Johann Bach |                  43 |
 | John Adams  |                  43 |
+| Johann Bach |                  43 |
 +-------------+---------------------+
-3 rows in set (0.00 sec)
+3 rows in set (0.01 sec)
 
 +------------+---------------------+
 | day        | number_of_purchases |
@@ -114,14 +171,12 @@ mysql> source mrb_assign2_queries.sql
 +-------------------+
 5 rows in set (0.00 sec)
 
-+-----------+----------+
-| last_name | siblings |
-+-----------+----------+
-| Carlson   |        2 |
-| Cook      |        2 |
-| Jones     |        2 |
-+-----------+----------+
-3 rows in set (0.00 sec)
++---------------+
+| sibling_pairs |
++---------------+
+|             3 |
++---------------+
+1 row in set (0.00 sec)
 
 +------------+-----------+
 | first_name | last_name |
@@ -135,13 +190,12 @@ mysql> source mrb_assign2_queries.sql
 +------------+-----------+
 6 rows in set (0.00 sec)
 
-+-----------+----------+
-| last_name | siblings |
-+-----------+----------+
-| Carlson   |        2 |
-| Jones     |        2 |
-+-----------+----------+
-2 rows in set (0.00 sec)
++-----------+
+| twin_sets |
++-----------+
+|         2 |
++-----------+
+1 row in set (0.00 sec)
 
 +------------+-----------+
 | first_name | last_name |
@@ -158,4 +212,4 @@ Bye
 sh-4.2$ exit
 exit
 
-Script done on Fri 27 Sep 2019 01:33:47 PM MST
+Script done on Fri 27 Sep 2019 03:13:51 PM MST

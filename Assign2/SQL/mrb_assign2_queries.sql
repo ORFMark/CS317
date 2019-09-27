@@ -63,7 +63,7 @@ ORDER BY customers.customer_id DESC;
 
 
 /*Question 2 Part A */ 
-SELECT * FROM (SELECT last_name, COUNT(*) AS siblings FROM students
+SELECT COUNT(*) AS sibling_pairs FROM (SELECT last_name, COUNT(*) AS siblings FROM students
 GROUP BY last_name,street_address, city) as temp WHERE temp.siblings >1;
 
 
@@ -75,7 +75,7 @@ ON sibling_table.last_name = students.last_name AND sibling_table.street_address
 
 
 /* Question 2 Part C */
-SELECT * FROM (SELECT last_name, COUNT(*) AS siblings FROM students
+SELECT COUNT(*) as twin_sets FROM (SELECT last_name, COUNT(*) AS siblings FROM students
 GROUP BY last_name,street_address, city, birthday) as temp WHERE temp.siblings >1;
 
 /* Question 2 Part D */
