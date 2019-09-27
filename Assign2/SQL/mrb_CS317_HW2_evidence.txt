@@ -1,0 +1,161 @@
+Script started on Fri 27 Sep 2019 01:32:30 PM MST
+[?1034hsh-4.2$ mysql -u burrelm1 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1326
+Server version: 5.6.42 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> source customers.sql
+ERROR 1046 (3D000): No database selected
+ERROR 1046 (3D000): No database selected
+mysql> use burrelm1_db
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> dource[K[K[K[K[K[Ksor[Kurce customers.sql
+Query OK, 0 rows affected (0.05 sec)
+
+Query OK, 15 rows affected (0.01 sec)
+Records: 15  Duplicates: 0  Warnings: 0
+
+mysql> soiur[K[K[Kurce students.sql
+ERROR: 
+No query specified
+
+ERROR: 
+No query specified
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'names of students who are twins or triplets
+DROP TABLE IF EXISTS students' at line 1
+Query OK, 0 rows affected (0.02 sec)
+
+Query OK, 11 rows affected (0.01 sec)
+Records: 11  Duplicates: 0  Warnings: 0
+
+mysql> source receipts.sql
+Query OK, 0 rows affected (0.03 sec)
+
+Query OK, 500 rows affected (0.00 sec)
+Records: 500  Duplicates: 0  Warnings: 0
+
+mysql> source mrb_assign2_queries.sql
++----------------+----------------+
+| customer       | total_purchase |
++----------------+----------------+
+| Carl Orf       |        1713.26 |
+| John Adams     |        1580.12 |
+| Johann Bach    |        1500.92 |
+| Richard Wagner |        1434.76 |
++----------------+----------------+
+4 rows in set (0.00 sec)
+
++----------------------+------------------+
+| customer             | average_purchase |
++----------------------+------------------+
+| Ludwig van Beethoven |        46.639600 |
+| Kurt Weill           |        44.922857 |
+| Frank Ferguson       |        43.714194 |
+| Leonard Bernstein    |        43.184828 |
+| Vaghan Williams      |        42.291724 |
++----------------------+------------------+
+5 rows in set (0.00 sec)
+
++-------------+---------------------+
+| customer    | number_of_purchases |
++-------------+---------------------+
+| Carl Orf    |                  49 |
+| Johann Bach |                  43 |
+| John Adams  |                  43 |
++-------------+---------------------+
+3 rows in set (0.00 sec)
+
++------------+---------------------+
+| day        | number_of_purchases |
++------------+---------------------+
+| 2018-05-27 |                   6 |
++------------+---------------------+
+1 row in set (0.00 sec)
+
++------------+--------+
+| day        | profit |
++------------+--------+
+| 2018-07-27 | 241.70 |
++------------+--------+
+1 row in set (0.00 sec)
+
++-------------------+------------+----------------+
+| customer          | day        | total_purchase |
++-------------------+------------+----------------+
+| Leonard Bernstein | 2018-05-27 |          61.75 |
+| Frank Ferguson    | 2018-05-27 |          46.46 |
+| John Adams        | 2018-05-27 |          29.49 |
+| Alban Berg        | 2018-05-27 |           8.64 |
+| John Cage         | 2018-05-27 |           1.57 |
++-------------------+------------+----------------+
+5 rows in set (0.00 sec)
+
++-------------------+
+| customer          |
++-------------------+
+| Alban Berg        |
+| John Cage         |
+| John Adams        |
+| Leonard Bernstein |
+| Frank Ferguson    |
++-------------------+
+5 rows in set (0.00 sec)
+
++-----------+----------+
+| last_name | siblings |
++-----------+----------+
+| Carlson   |        2 |
+| Cook      |        2 |
+| Jones     |        2 |
++-----------+----------+
+3 rows in set (0.00 sec)
+
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Bill       | Carlson   |
+| Jean       | Carlson   |
+| Leonard    | Cook      |
+| Sam        | Cook      |
+| Mary       | Jones     |
+| Phyllis    | Jones     |
++------------+-----------+
+6 rows in set (0.00 sec)
+
++-----------+----------+
+| last_name | siblings |
++-----------+----------+
+| Carlson   |        2 |
+| Jones     |        2 |
++-----------+----------+
+2 rows in set (0.00 sec)
+
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Bill       | Carlson   |
+| Jean       | Carlson   |
+| Mary       | Jones     |
+| Phyllis    | Jones     |
++------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> exit
+Bye
+sh-4.2$ exit
+exit
+
+Script done on Fri 27 Sep 2019 01:33:47 PM MST

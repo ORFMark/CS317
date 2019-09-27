@@ -1,0 +1,10 @@
+CREATE TABLE friends (
+    first_name VARCHAR(32);
+    last_name VARCHAR(32);
+    birthday DATE();
+    phone CHAR(13)
+);
+
+
+    
+    

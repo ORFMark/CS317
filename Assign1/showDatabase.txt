@@ -1,0 +1,262 @@
+Script started on Wed 28 Aug 2019 03:18:34 PM MST
+[?1034hsh-4.2$ mysql -u burrelm1 -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 581
+Server version: 5.6.42 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;[K[K;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show database;s;;
++---------------------+
+| Database            |
++---------------------+
+| information_schema  |
+| 123a                |
+| Ahmed               |
+| AlkaabiDHV1         |
+| AlkaabimDHv1__2     |
+| AlkaabimDHv1__3     |
+| AlkaabimDHv1__FIXED |
+| CS317DB             |
+| DroneGroupProject   |
+| FRS_Database        |
+| G1_AHM_League_FIXED |
+| G2_DV_Game_Account  |
+| G3_Pahrump_Const    |
+| G4_Song_DB          |
+| G5_Dilbert_Mgr      |
+| G6_Drone_Net        |
+| G7_ERAU_Housing     |
+| G&_ERAU_Housing     |
+| Jungkeitm_DHV1_3    |
+| LaiDHV1             |
+| LaiDHV2             |
+| SoechtingDHV2       |
+| WHY                 |
+| alkaabimDHV1        |
+| alkaabimDHV2        |
+| alkaabim_db         |
+| alkhawaraDHV1       |
+| alkhawaraDHV2       |
+| alkhawaraDHv1_3     |
+| alkhawara_db        |
+| almheiriDHV1        |
+| almheiriDHV1__2     |
+| almheiriDHV2        |
+| almheiriDHV2_fixed  |
+| almheirih_db        |
+| ariass_db           |
+| breslinr_db         |
+| burrelm1_db         |
+| carrino_DHV2        |
+| carrino_dreamhome   |
+| carrinocDHV1        |
+| carrinocDHV2        |
+| carrinocZAGI        |
+| carrinoc_db         |
+| chamberlaindDHV1    |
+| chamberlaindDHV2    |
+| chamberlaindHAFH    |
+| chamberlaindZAGI    |
+| chamberlaind_DHv1_3 |
+| chamberlaind_db     |
+| collis22_db         |
+| cordovf1_db         |
+| cornelle_db         |
+| delongDHv1          |
+| delongDHv1.1        |
+| delongDHv1.2        |
+| delongl_db          |
+| dipintonDHV1        |
+| dipintonDHV2        |
+| dipinton_db         |
+| dreamhome           |
+| dreamhome_Lai       |
+| dreamhomes          |
+| elizabeth           |
+| ellisxonk_db        |
+| ellixson_db         |
+| elvinl              |
+| ferriere_db         |
+| football            |
+| frioujDHV1          |
+| frioujDHV2          |
+| friouj_db           |
+| graya17_db          |
+| greendDHV1          |
+| greendDHV2          |
+| greendDHv1_3        |
+| greendDHv1_4        |
+| greendZAGI          |
+| greend_db           |
+| grobmeid_db         |
+| hammondc_db         |
+| heckmanDHV1         |
+| heckmanDHV4         |
+| heckmanHAFH         |
+| heckmanZAGI         |
+| heckmancDHV2        |
+| heckmancDHV3        |
+| heckmanc_db         |
+| heckmanchrisZAGI    |
+| heckmanchris_db     |
+| heeDHV1             |
+| heeDHV2             |
+| hee_db              |
+| hergarDHV1          |
+| hergarDHV2          |
+| hergar_DHV3         |
+| hergar_db           |
+| hoteldb             |
+| hplatinum           |
+| ibrahin3_db         |
+| instructordba_db    |
+| jungkeitmDHV1       |
+| jungkeitmDHV2       |
+| jungkeitmDHv1_3     |
+| jungkeitm_HW4       |
+| jungkeitm_db        |
+| katzfDHV1           |
+| katzfDHV2           |
+| katzf_db            |
+| klainl_db           |
+| koayeDHV1           |
+| koayeDHV2           |
+| koayeDHv1_3         |
+| koaye_db            |
+| koayeass5           |
+| laiDHV2             |
+| laiy_db             |
+| lastname1DHV2       |
+| lastname3DHV2       |
+| lehmanb_db          |
+| maldonadom_db       |
+| matthewTest         |
+| matthewskDHV1       |
+| matthewskDHV2       |
+| matthewskHAFH       |
+| matthewskZAGI       |
+| matthewsk_db        |
+| menagerie           |
+| molina10_db         |
+| mouhanns_db         |
+| mydatabase          |
+| mydb                |
+| myhomes             |
+| mysql               |
+| nunnsDHV1           |
+| nunnsDHV2           |
+| nunnsDHv1_3         |
+| nunns_db            |
+| pereiraDHV1         |
+| pereiraDHV2         |
+| pereirakDHV1        |
+| pereirakDHV2        |
+| pereirak_db         |
+| performance_schema  |
+| pietzd_db           |
+| polkDHV1            |
+| polkDHV2            |
+| polkDHV2_2          |
+| polkr_db            |
+| potrebij_db         |
+| rapptDHV1           |
+| rapptHAFH           |
+| rapptZAGI           |
+| rappt_BTREE_db      |
+| rappt_DHV1          |
+| rappt_DHV1_B        |
+| rappt_Proj_Proto    |
+| rappt_db            |
+| rappt_studentlease  |
+| reckeraDHV1         |
+| reckeraDHV2         |
+| reckeraDHv1_3       |
+| reckeraHAFH         |
+| reckeraZAGI         |
+| reckera_db          |
+| reckera_project     |
+| sakila              |
+| scarbroa_db         |
+| sensmeierrDHV1      |
+| sensmeierrDHV2      |
+| sensmeierrDHv1_3    |
+| sensmeierr_db       |
+| siewertsDHV1        |
+| siewertsDHV2        |
+| siewertsDHv1_3      |
+| siewertsHAFH        |
+| siewertsZAGI        |
+| siewerts_db         |
+| soechtingeDHV1      |
+| soechtingeDHV2      |
+| soechtingeHAFH      |
+| soechtingeZAGI      |
+| soechtinge_db       |
+| stockhod_db         |
+| stockhod_test       |
+| stonema1_db         |
+| struckd_db          |
+| studentlease        |
+| studentleaseHeckman |
+| studentleaseLD      |
+| studentlease_Lai    |
+| summej12_db         |
+| tadba_db            |
+| tannerk2_db         |
+| terletskyyyDHV1     |
+| terletskyyyDHV1_3   |
+| terletskyyyDHV2     |
+| terletskyyy_HW4     |
+| terletskyyy_db      |
+| test2               |
+| testDHV2            |
+| test_db             |
+| testboi             |
+| testingDHV2         |
+| towerss_db          |
+| toyoharatDHV1       |
+| toyoharatDHV1_1     |
+| toyoharatDHV1_2     |
+| toyoharatDHV2       |
+| toyoharat_db        |
+| vanhilsm1           |
+| vanhilsm_db         |
+| walkea44_db         |
+| wattsjDHV1          |
+| wattsjDHV1_3        |
+| wattsjDHV2          |
+| wattsj_db           |
+| wilsonDHV1          |
+| wilsonDHV2          |
+| wilsonDHV2_attempt2 |
+| wilsonDHv1_3        |
+| wilsonDHv1_3_2      |
+| wilsonjHAFH         |
+| wilsonj_db          |
+| world               |
+| world2              |
+| worldMatthew        |
+| world_jw            |
+| yoyo13              |
+| yoyo14              |
+| yoyokoaye           |
+| yoyokoaye1          |
++---------------------+
+232 rows in set (0.00 sec)
+
+mysql> exit 
+Bye
+sh-4.2$ exit
+exit
+
+Script done on Wed 28 Aug 2019 03:19:06 PM MST
