@@ -1,0 +1,1519 @@
+Script started on Sun 29 Sep 2019 10:50:14 AM MST
+[?1034hsh-4.2$ cat -n soccer_up.sql
+     1	CREATE TABLE participant (
+     2	    id INT NOT NULL AUTO_INCREMENT,
+     3	    first_name VARCHAR(32),
+     4	    last_name VARCHAR(32),
+     5	    phone_number CHAR(10),
+     6	    PRIMARY KEY (id)
+     7	);
+     8	
+     9	CREATE TABLE team (
+    10	    id INT NOT NULL AUTO_INCREMENT,
+    11	    team_name VARCHAR(32),
+    12	    coach_id INT NOT NULL,
+    13	    PRIMARY KEY (id),
+    14	    FOREIGN KEY(coach_id) REFERENCES  participant(id) ON DELETE CASCADE
+    15	);
+    16	
+    17	CREATE TABLE roster (
+    18	    participant_id INT NOT NULL,
+    19	    team_id INT NOT NULL,
+    20	    FOREIGN KEY(participant_id) REFERENCES participant(id) ON DELETE CASCADE,
+    21	    FOREIGN KEY(team_id) REFERENCES team(id) ON DELETE CASCADE
+    22	);
+    23	
+    24	CREATE TABLE game (
+    25	    id INT NOT NULL AUTO_INCREMENT,
+    26	    arrival DATETIME,
+    27	    location VARCHAR(32),
+    28	    PRIMARY KEY (id)
+    29	);
+    30	
+    31	CREATE TABLE schedule (
+    32	   team_id INT,
+    33	   game_id INT,
+    34	   is_host INT NOT NULL DEFAULT 0,
+    35	   FOREIGN KEY(team_id) REFERENCES team(id) ON DELETE CASCADE,
+    36	   FOREIGN KEY(game_id) REFERENCES game(id) ON DELETE CASCADE
+    37	   
+    38	);
+    39	
+    40	INSERT INTO participant (first_name, last_name, phone_number) VALUES
+    41	('Mike', 'Burrell', '9929525992'),
+    42	('Lillian', 'Stoneman', '2490643179'),
+    43	('Davis', 'Davis', '4980164298'),
+    44	('Sam', 'Joshua', '8258723859'),
+    45	('Burrell', 'Prieur', '6496249374'),
+    46	('Sam', 'Mark', '1701342688'),
+    47	('Charlie', 'Amber', '2260639556'),
+    48	('Lillian', 'Anna', '7671274420'),
+    49	('Mark', 'Lillian', '8508411338'),
+    50	('Scarbarough', 'Van Hilst', '7703048958'),
+    51	('Van Hilst', 'Grobmeir', '3582587976'),
+    52	('Drew', 'Prieur', '2791601509'),
+    53	('Seiwert', 'Davis', '3845721179'),
+    54	('Amber', 'Sam', '2016418935'),
+    55	('David', 'Drew', '2378918177'),
+    56	('Brian', 'Kaylie', '9194836990'),
+    57	('Stoneman', 'Kaylie', '6461017591'),
+    58	('Anna', 'Drew', '2743934491'),
+    59	('Kaylie', 'Kaylie', '6985589353'),
+    60	('Sam', 'Burrell', '8862916723'),
+    61	('Amber', 'Mark', '2360273801'),
+    62	('Joshua', 'Amber', '6674260405'),
+    63	('Sam', 'Charlie', '8977245313'),
+    64	('David', 'Stoneman', '2700998166'),
+    65	('Mike', 'Drew', '6044157791'),
+    66	('Sam', 'Mark', '7252968926'),
+    67	('Joshua', 'Heather', '3423773497'),
+    68	('Drew', 'Heather', '9133145717'),
+    69	('Charlie', 'Stoneman', '1028814767'),
+    70	('Sam', 'Prieur', '1543689019'),
+    71	('Mike', 'Drew', '9499695681'),
+    72	('Seiwert', 'Mike', '9436041097'),
+    73	('Stoneman', 'Brian', '8496076853'),
+    74	('Drew', 'Drew', '7302306152'),
+    75	('Amber', 'Heather', '1357210568'),
+    76	('Sam', 'Sam', '8391622274'),
+    77	('Grobmeir', 'Charlie', '8761140337'),
+    78	('Stoneman', 'Prieur', '5998332840'),
+    79	('David', 'Joshua', '3354271288'),
+    80	('Van Hilst', 'Van Hilst', '2760968317'),
+    81	('Anna', 'Brian', '7629663778'),
+    82	('Amber', 'Marriot', '7573638527'),
+    83	('Mike', 'Grobmeir', '4074932382'),
+    84	('Jousha', 'Van Hilst', '7171979734'),
+    85	('Davis', 'Sam', '2445672606'),
+    86	('Brian', 'Van Hilst', '1434361151'),
+    87	('Scarbarough', 'Seiwert', '4751634546'),
+    88	('Van Hilst', 'Anna', '1122513800'),
+    89	('Kaylie', 'Seiwert', '4307286021'),
+    90	('Charlie', 'Van Hilst', '8453858447'),
+    91	('Davis', 'Kaylie', '7560423171'),
+    92	('Sam', 'Seiwert', '7389840831'),
+    93	('Prieur', 'Prieur', '1962444505'),
+    94	('Mike', 'Grobmeir', '5046001361'),
+    95	('Burrell', 'Brian', '8206478689'),
+    96	('Seiwert', 'Marriot', '3078647342'),
+    97	('Joshua', 'Drew', '8246566975'),
+    98	('Grobmeir', 'Kaylie', '6358477062'),
+    99	('David', 'Burrell', '6229241205'),
+   100	('Heather', 'Mike', '6453207398'),
+   101	('Sam', 'Mark', '5476133600'),
+   102	('Amber', 'Heather', '3306264938'),
+   103	('Mark', 'Heather', '4168265157'),
+   104	('Davis', 'Brian', '6809435487'),
+   105	('Lillian', 'Mike', '4894097441');
+   106	
+   107	INSERT INTO team (team_name, coach_id) VALUES
+   108	('Sharks', 1),
+   109	('Whales', 2),
+   110	('Pirhanas', 3),
+   111	('Eels', 4),
+   112	('Salmon', 5),
+   113	('Porpoise', 6),
+   114	('Otters', 7);
+   115	
+   116	INSERT INTO roster VALUES
+   117	(8, 1),
+   118	(9, 1),
+   119	(10, 1),
+   120	(11, 1),
+   121	(12, 1),
+   122	(13, 1),
+   123	(14, 1),
+   124	(15, 1),
+   125	(16, 2),
+   126	(17, 2),
+   127	(18, 2),
+   128	(19, 2),
+   129	(20, 2),
+   130	(21, 2),
+   131	(22, 2),
+   132	(23, 2),
+   133	(24, 3),
+   134	(25, 3),
+   135	(26, 3),
+   136	(27, 3),
+   137	(28, 3),
+   138	(29, 3),
+   139	(30, 3),
+   140	(31, 3),
+   141	(32, 4),
+   142	(33, 4),
+   143	(34, 4),
+   144	(35, 4),
+   145	(36, 4),
+   146	(37, 4),
+   147	(38, 4),
+   148	(39, 4),
+   149	(40, 5),
+   150	(41, 5),
+   151	(42, 5),
+   152	(43, 5),
+   153	(44, 5),
+   154	(45, 5),
+   155	(46, 5),
+   156	(47, 5),
+   157	(48, 6),
+   158	(49, 6),
+   159	(50, 6),
+   160	(51, 6),
+   161	(52, 6),
+   162	(53, 6),
+   163	(54, 6),
+   164	(55, 6),
+   165	(56, 7),
+   166	(57, 7),
+   167	(58, 7),
+   168	(59, 7),
+   169	(60, 7),
+   170	(61, 7),
+   171	(62, 7),
+   172	(63, 7);
+   173	
+   174	INSERT INTO game (arrival, location) VALUES 
+   175	('2019-09-14 09:00:00', 'Pioneer Park'), /*1v2*/
+   176	('2019-09-21 09:00:00', 'Pioneer Park'), /*1v3*/
+   177	('2019-09-28 09:00:00', 'Pioneer Park'), /*1v4*/
+   178	('2019-10-05 09:00:00', 'Pioneer Park'), /*1v5*/
+   179	('2019-10-12 09:00:00', 'Pioneer Park'), /*1v6*/
+   180	('2019-10-19 09:00:00', 'Pioneer Park'), /*1v7*/
+   181	('2019-09-14 09:00:00', 'Pioneer Park'), /*2v3*/
+   182	('2019-09-21 09:00:00', 'Pioneer Park'), /*2v4*/
+   183	('2019-09-28 09:00:00', 'Pioneer Park'), /*2v5*/
+   184	('2019-10-05 09:00:00', 'Pioneer Park'), /*2v6*/
+   185	('2019-10-19 09:00:00', 'Pioneer Park'), /*2v7*/
+   186	('2019-09-14 09:00:00', 'Pioneer Park'), /*3v4*/
+   187	('2019-09-21 09:00:00', 'Pioneer Park'), /*3v5*/
+   188	('2019-09-28 09:00:00', 'Pioneer Park'), /*3v6*/
+   189	('2019-10-05 09:00:00', 'Pioneer Park'), /*3v7*/
+   190	('2019-09-14 09:00:00', 'Pioneer Park'), /*4v5*/
+   191	('2019-09-21 09:00:00', 'Pioneer Park'), /*4v6*/
+   192	('2019-09-28 09:00:00', 'Pioneer Park'), /*4v7*/
+   193	('2019-09-14 09:00:00', 'Pioneer Park'), /*5v6*/
+   194	('2019-09-28 09:00:00', 'Pioneer Park'), /*5v7*/
+   195	('2019-09-14 09:00:00', 'Pioneer Park'); /*6v7*/
+   196	
+   197	INSERT INTO schedule (team_id, game_id, is_host) VALUES
+   198	(1,1,1),
+   199	(2,1,0),
+   200	(3,2,1),
+   201	(1,2,0),
+   202	(1,3,1),
+   203	(4,3,0),
+   204	(5,4,1),
+   205	(1,4,0),
+   206	(1,5,1),
+   207	(6,5,0),
+   208	(7,6,1),
+   209	(1,6,0),
+   210	(2,7,1),
+   211	(3,7,0),
+   212	(4,8,1),
+   213	(2,8,0),
+   214	(2,9,1),
+   215	(5,9,0),
+   216	(6,10,1),
+   217	(2,10,0),
+   218	(2,11,1),
+   219	(7,11,0),
+   220	(3,12,1),
+   221	(4,12,0),
+   222	(5,13,1),
+   223	(3,13,0),
+   224	(3,14,1),
+   225	(6,14,0),
+   226	(7,15,1),
+   227	(3,15,0),
+   228	(4,16,1),
+   229	(5,16,0),
+   230	(6,17,1),
+   231	(4,17,0),
+   232	(4,18,1),
+   233	(7,18,0),
+   234	(5,19,1),
+   235	(6,19,0),
+   236	(7,20,1),
+   237	(5,20,0),
+   238	(6,21,1),
+   239	(7,21,0);
+   240	
+sh-4.2$ so[K[Kcat -n soccer_down.sql
+     1	DROP TABLE roster;
+     2	DROP TABLE schedule;
+     3	DROP TABLE game;
+     4	DROP TABLE team;
+     5	DROP TABLE participant;sh-4.2$ 
+sh-4.2$ cat -n soccer_query.sql
+     1	/* FINAL OUTPUT */
+     2	
+     3	SELECT participant.first_name as first, participant.last_name as last, temp.arrival, temp.snack FROM (participant
+     4	INNER JOIN roster ON roster.participant_id = participant.id
+     5	INNER JOIN (SELECT game.arrival as arrival, schedule.is_host AS snack, team.id as team_id FROM ((game
+     6	            INNER JOIN schedule on schedule.game_id = game.id)
+     7	            INNER JOIN team on team.id = schedule.team_id)
+     8	            ) AS temp ON roster.team_id = temp.team_id)
+     9	            ORDER BY participant.id DESC;
+    10	
+    11	
+    12	SELECT  participant.first_name as first, participant.last_name as last, game.arrival as arrival, schedule.is_host AS snack, 
+    13	CONCAT(COALESCE(visitor.team_name, ''), COALESCE(host.team_name, '')) as against FROM ((((((game
+    14	            INNER JOIN schedule on schedule.game_id = game.id)
+    15	            INNER JOIN team on team.id = schedule.team_id)
+    16	            INNER JOIN roster on roster.team_id = team.id)
+    17	            INNER JOIN participant on roster.participant_id = participant.id)
+    18	            LEFT JOIN (SELECT schedule.game_id, team.id, team.team_name FROM (schedule INNER JOIN team on team.id = schedule.team_id) WHERE is_host = 0)
+    19	                        as visitor ON visitor.id != team.id AND visitor.game_id = game.id AND schedule.is_host = 1)
+    20	            LEFT JOIN (SELECT schedule.game_id, team.id, team.team_name FROM (schedule INNER JOIN team on team.id = schedule.team_id) WHERE is_host = 1)
+    21	                        as host ON host.id != team.id AND host.game_id = game.id AND schedule.is_host = 0)
+    22	            ORDER BY game.arrival ASC;  
+    23	
+    24	SELECT CONCAT(tb1.first, ' ', tb1.last) as player, tb1.arrival, tb1.snack, tb1.against, tb2.lead_by FROM ((SELECT  participant.first_name as first, participant.last_name as last, game.arrival as arrival, schedule.is_host AS snack, CONCAT(COALESCE(visitor.team_name, ''), COALESCE(host.team_name, '')) as against FROM ((((((game
+    25	            INNER JOIN schedule on schedule.game_id = game.id)
+    26	            INNER JOIN team on team.id = schedule.team_id)
+    27	            INNER JOIN roster on roster.team_id = team.id)
+    28	            INNER JOIN participant on roster.participant_id = participant.id)
+    29	            LEFT JOIN (SELECT schedule.game_id, team.id, team.team_name FROM (schedule INNER JOIN team on team.id = schedule.team_id) WHERE is_host = 0)
+    30	                        as visitor ON visitor.id != team.id AND visitor.game_id = game.id AND schedule.is_host = 1)
+    31	            LEFT JOIN (SELECT schedule.game_id, team.id, team.team_name FROM (schedule INNER JOIN team on team.id = schedule.team_id) WHERE is_host = 1)
+    32	                        as host ON host.id != team.id AND host.game_id = game.id AND schedule.is_host = 0)
+    33	            ORDER BY game.arrival ASC) as tb1
+    34	INNER JOIN (SELECT team.team_name, CONCAT(participant.first_name, ' ', participant.last_name) as lead_by FROM team 
+    35	            INNER JOIN participant on participant.id = team.coach_id) as tb2 ON tb1.against = tb2.team_name) 
+    36	ORDER BY player ASC;
+    37	
+    38	
+    39	/*
+    40	SELECT participant.first_name as first, participant.last_name as last, roster.team_id FROM participant 
+    41	INNER JOIN roster ON participant.id = roster.participant_id;
+    42	*/
+    43	
+    44	/*
+    45	SELECT team.team_name as name, roster.participant_id FROM team
+    46	INNER JOIN roster ON team.id = roster.team_id;
+    47	*/
+    48	
+    49	/*
+    50	SELECT temp.first as first, temp.last as last, team.team_name FROM team
+    51	INNER JOIN (SELECT participant.first_name as first, participant.last_name as last, roster.team_id FROM participant 
+    52	            INNER JOIN roster ON participant.id = roster.participant_id) as temp ON temp.team_id = team.id;
+    53	*/
+    54	
+    55	/*
+    56	SELECT team.team_name, game.arrival AS be_there, schedule.is_host AS snack FROM ((schedule
+    57	INNER JOIN game ON schedule.game_id = game.id)
+    58	INNER JOIN team ON team.id = schedule.team_id
+    59	);
+    60	*/
+    61	
+    62	
+    63	/* PART 1*/ /*
+    64	SELECT participant.first_name as first, participant.last_name as last, temp.arrival, temp.snack FROM (participant
+    65	INNER JOIN roster ON roster.participant_id = participant.id
+    66	INNER JOIN (SELECT game.arrival as arrival, schedule.is_host AS snack, team.id as team_id FROM ((game
+    67	            INNER JOIN schedule on schedule.game_id = game.id)
+    68	            INNER JOIN team on team.id = schedule.team_id)
+    69	            ) AS temp ON roster.team_id = temp.team_id)
+    70	            ORDER BY participant.id DESC;
+    71	*/
+    72	
+    73	/*
+    74	SELECT participant.first_name AS first, participant.last_name AS last, team.team_name FROM ((roster
+    75	INNER JOIN participant ON participant.id = roster.participant_id)
+    76	INNER JOIN team ON team.id = roster.team_id);
+    77	*/
+    78	
+    79	/*
+    80	SELECT game.id, visitor.id as visitor_id, visitor.team_name as visitor, host.id as host_id, host.team_name as host FROM ((game 
+    81	INNER JOIN (SELECT schedule.game_id, team.id, team.team_name FROM (schedule INNER JOIN team on team.id = schedule.team_id) WHERE is_host = 0) as visitor ON visitor.game_id = game.id)
+    82	INNER JOIN (SELECT schedule.game_id, team.id, team.team_name FROM (schedule INNER JOIN team on team.id = schedule.team_id) WHERE is_host = 1) as host ON host.game_id = game.id);
+    83	*/
+    84	
+    85	/* part 2 */ /*
+    86	SELECT  participant.first_name as first, participant.last_name as last, game.arrival as arrival, schedule.is_host AS snack, 
+    87	CONCAT(COALESCE(visitor.team_name, ''), COALESCE(host.team_name, '')) as against FROM ((((((game
+    88	            INNER JOIN schedule on schedule.game_id = game.id)
+    89	            INNER JOIN team on team.id = schedule.team_id)
+    90	            INNER JOIN roster on roster.team_id = team.id)
+    91	            INNER JOIN participant on roster.participant_id = participant.id)
+    92	            LEFT JOIN (SELECT schedule.game_id, team.id, team.team_name FROM (schedule INNER JOIN team on team.id = schedule.team_id) WHERE is_host = 0)
+    93	                        as visitor ON visitor.id != team.id AND visitor.game_id = game.id AND schedule.is_host = 1)
+    94	            LEFT JOIN (SELECT schedule.game_id, team.id, team.team_name FROM (schedule INNER JOIN team on team.id = schedule.team_id) WHERE is_host = 1)
+    95	                        as host ON host.id != team.id AND host.game_id = game.id AND schedule.is_host = 0)
+    96	            ORDER BY game.arrival ASC;  
+    97	*/
+    98	
+    99	
+   100	
+   101	
+   102	/*
+   103	SELECT team.team_name, CONCAT(participant.first_name, ' ', participant.last_name) as lead_by FROM team 
+   104	INNER JOIN participant on participant.id = team.coach_id;
+   105	*/ 
+   106	
+   107	/* PART 3 */ /*
+   108	SELECT CONCAT(tb1.first, ' ', tb1.last) as player, tb1.arrival, tb1.snack, tb1.against, tb2.lead_by FROM ((SELECT  participant.first_name as first, participant.last_name as last, game.arrival as arrival, schedule.is_host AS snack, CONCAT(COALESCE(visitor.team_name, ''), COALESCE(host.team_name, '')) as against FROM ((((((game
+   109	            INNER JOIN schedule on schedule.game_id = game.id)
+   110	            INNER JOIN team on team.id = schedule.team_id)
+   111	            INNER JOIN roster on roster.team_id = team.id)
+   112	            INNER JOIN participant on roster.participant_id = participant.id)
+   113	            LEFT JOIN (SELECT schedule.game_id, team.id, team.team_name FROM (schedule INNER JOIN team on team.id = schedule.team_id) WHERE is_host = 0)
+   114	                        as visitor ON visitor.id != team.id AND visitor.game_id = game.id AND schedule.is_host = 1)
+   115	            LEFT JOIN (SELECT schedule.game_id, team.id, team.team_name FROM (schedule INNER JOIN team on team.id = schedule.team_id) WHERE is_host = 1)
+   116	                        as host ON host.id != team.id AND host.game_id = game.id AND schedule.is_host = 0)
+   117	            ORDER BY game.arrival ASC) as tb1
+   118	INNER JOIN (SELECT team.team_name, CONCAT(participant.first_name, ' ', participant.last_name) as lead_by FROM team 
+   119	            INNER JOIN participant on participant.id = team.coach_id) as tb2 ON tb1.against = tb2.team_name) 
+   120	ORDER BY player ASC;
+   121	*/ 
+   122	/*
+   123	SELECT participant.first_name as first, participant.last_name as last, temp.arrival, temp.snack FROM (participant
+   124	INNER JOIN roster ON roster.participant_id = participant.id
+   125	INNER JOIN (SELECT game.arrival as arrival, schedule.is_host AS snack, team.id as team_id FROM ((game
+   126	            INNER JOIN schedule on schedule.game_id = game.id)
+   127	            INNER JOIN team on team.id = schedule.team_id)
+   128	            ) AS temp ON roster.team_id = temp.team_id)
+   129	
+   130	ORDER BY participant.id ASC;
+   131	*/sh-4.2$ 
+sh-4.2$ mysql -u burrelm1 -p 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1406
+Server version: 5.6.42 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use burrelm1_dv[Kb
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++-----------------------+
+| Tables_in_burrelm1_db |
++-----------------------+
+| class_schedule        |
+| classes               |
+| customers             |
+| friends               |
+| myhomes               |
+| pet                   |
+| receipts              |
+| students              |
++-----------------------+
+8 rows in set (0.01 sec)
+
+mysql> source soccer_up.sql
+Query OK, 0 rows affected (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+Query OK, 0 rows affected (0.09 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+Query OK, 0 rows affected (0.09 sec)
+
+Query OK, 65 rows affected (0.00 sec)
+Records: 65  Duplicates: 0  Warnings: 0
+
+Query OK, 7 rows affected (0.00 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+Query OK, 56 rows affected (0.01 sec)
+Records: 56  Duplicates: 0  Warnings: 0
+
+Query OK, 21 rows affected (0.00 sec)
+Records: 21  Duplicates: 0  Warnings: 0
+
+Query OK, 42 rows affected (0.00 sec)
+Records: 42  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++-----------------------+
+| Tables_in_burrelm1_db |
++-----------------------+
+| class_schedule        |
+| classes               |
+| customers             |
+| friends               |
+| game                  |
+| myhomes               |
+| participant           |
+| pet                   |
+| receipts              |
+| roster                |
+| schedule              |
+| students              |
+| team                  |
++-----------------------+
+13 rows in set (0.00 sec)
+
+mysql> source soccer_query.sql
++-------------+-----------+---------------------+-------+
+| first       | last      | arrival             | snack |
++-------------+-----------+---------------------+-------+
+| Mark        | Heather   | 2019-10-05 09:00:00 |     1 |
+| Mark        | Heather   | 2019-09-14 09:00:00 |     0 |
+| Mark        | Heather   | 2019-10-19 09:00:00 |     0 |
+| Mark        | Heather   | 2019-09-28 09:00:00 |     1 |
+| Mark        | Heather   | 2019-10-19 09:00:00 |     1 |
+| Mark        | Heather   | 2019-09-28 09:00:00 |     0 |
+| Amber       | Heather   | 2019-09-28 09:00:00 |     1 |
+| Amber       | Heather   | 2019-10-19 09:00:00 |     1 |
+| Amber       | Heather   | 2019-09-28 09:00:00 |     0 |
+| Amber       | Heather   | 2019-10-05 09:00:00 |     1 |
+| Amber       | Heather   | 2019-09-14 09:00:00 |     0 |
+| Amber       | Heather   | 2019-10-19 09:00:00 |     0 |
+| Sam         | Mark      | 2019-09-28 09:00:00 |     0 |
+| Sam         | Mark      | 2019-10-05 09:00:00 |     1 |
+| Sam         | Mark      | 2019-09-14 09:00:00 |     0 |
+| Sam         | Mark      | 2019-10-19 09:00:00 |     0 |
+| Sam         | Mark      | 2019-09-28 09:00:00 |     1 |
+| Sam         | Mark      | 2019-10-19 09:00:00 |     1 |
+| Heather     | Mike      | 2019-10-05 09:00:00 |     1 |
+| Heather     | Mike      | 2019-09-14 09:00:00 |     0 |
+| Heather     | Mike      | 2019-10-19 09:00:00 |     0 |
+| Heather     | Mike      | 2019-09-28 09:00:00 |     1 |
+| Heather     | Mike      | 2019-10-19 09:00:00 |     1 |
+| Heather     | Mike      | 2019-09-28 09:00:00 |     0 |
+| David       | Burrell   | 2019-09-28 09:00:00 |     1 |
+| David       | Burrell   | 2019-10-19 09:00:00 |     1 |
+| David       | Burrell   | 2019-09-28 09:00:00 |     0 |
+| David       | Burrell   | 2019-10-05 09:00:00 |     1 |
+| David       | Burrell   | 2019-09-14 09:00:00 |     0 |
+| David       | Burrell   | 2019-10-19 09:00:00 |     0 |
+| Grobmeir    | Kaylie    | 2019-09-28 09:00:00 |     0 |
+| Grobmeir    | Kaylie    | 2019-10-05 09:00:00 |     1 |
+| Grobmeir    | Kaylie    | 2019-09-14 09:00:00 |     0 |
+| Grobmeir    | Kaylie    | 2019-10-19 09:00:00 |     0 |
+| Grobmeir    | Kaylie    | 2019-09-28 09:00:00 |     1 |
+| Grobmeir    | Kaylie    | 2019-10-19 09:00:00 |     1 |
+| Joshua      | Drew      | 2019-09-14 09:00:00 |     0 |
+| Joshua      | Drew      | 2019-10-19 09:00:00 |     0 |
+| Joshua      | Drew      | 2019-09-28 09:00:00 |     1 |
+| Joshua      | Drew      | 2019-10-19 09:00:00 |     1 |
+| Joshua      | Drew      | 2019-09-28 09:00:00 |     0 |
+| Joshua      | Drew      | 2019-10-05 09:00:00 |     1 |
+| Seiwert     | Marriot   | 2019-09-28 09:00:00 |     1 |
+| Seiwert     | Marriot   | 2019-10-19 09:00:00 |     1 |
+| Seiwert     | Marriot   | 2019-09-28 09:00:00 |     0 |
+| Seiwert     | Marriot   | 2019-10-05 09:00:00 |     1 |
+| Seiwert     | Marriot   | 2019-09-14 09:00:00 |     0 |
+| Seiwert     | Marriot   | 2019-10-19 09:00:00 |     0 |
+| Burrell     | Brian     | 2019-10-12 09:00:00 |     0 |
+| Burrell     | Brian     | 2019-09-14 09:00:00 |     0 |
+| Burrell     | Brian     | 2019-09-21 09:00:00 |     1 |
+| Burrell     | Brian     | 2019-09-28 09:00:00 |     0 |
+| Burrell     | Brian     | 2019-10-05 09:00:00 |     1 |
+| Burrell     | Brian     | 2019-09-14 09:00:00 |     1 |
+| Mike        | Grobmeir  | 2019-09-28 09:00:00 |     0 |
+| Mike        | Grobmeir  | 2019-10-05 09:00:00 |     1 |
+| Mike        | Grobmeir  | 2019-09-14 09:00:00 |     1 |
+| Mike        | Grobmeir  | 2019-10-12 09:00:00 |     0 |
+| Mike        | Grobmeir  | 2019-09-14 09:00:00 |     0 |
+| Mike        | Grobmeir  | 2019-09-21 09:00:00 |     1 |
+| Prieur      | Prieur    | 2019-10-05 09:00:00 |     1 |
+| Prieur      | Prieur    | 2019-09-14 09:00:00 |     1 |
+| Prieur      | Prieur    | 2019-10-12 09:00:00 |     0 |
+| Prieur      | Prieur    | 2019-09-14 09:00:00 |     0 |
+| Prieur      | Prieur    | 2019-09-21 09:00:00 |     1 |
+| Prieur      | Prieur    | 2019-09-28 09:00:00 |     0 |
+| Sam         | Seiwert   | 2019-10-12 09:00:00 |     0 |
+| Sam         | Seiwert   | 2019-09-14 09:00:00 |     0 |
+| Sam         | Seiwert   | 2019-09-21 09:00:00 |     1 |
+| Sam         | Seiwert   | 2019-09-28 09:00:00 |     0 |
+| Sam         | Seiwert   | 2019-10-05 09:00:00 |     1 |
+| Sam         | Seiwert   | 2019-09-14 09:00:00 |     1 |
+| Davis       | Kaylie    | 2019-09-28 09:00:00 |     0 |
+| Davis       | Kaylie    | 2019-10-05 09:00:00 |     1 |
+| Davis       | Kaylie    | 2019-09-14 09:00:00 |     1 |
+| Davis       | Kaylie    | 2019-10-12 09:00:00 |     0 |
+| Davis       | Kaylie    | 2019-09-14 09:00:00 |     0 |
+| Davis       | Kaylie    | 2019-09-21 09:00:00 |     1 |
+| Charlie     | Van Hilst | 2019-10-05 09:00:00 |     1 |
+| Charlie     | Van Hilst | 2019-09-14 09:00:00 |     1 |
+| Charlie     | Van Hilst | 2019-10-12 09:00:00 |     0 |
+| Charlie     | Van Hilst | 2019-09-14 09:00:00 |     0 |
+| Charlie     | Van Hilst | 2019-09-21 09:00:00 |     1 |
+| Charlie     | Van Hilst | 2019-09-28 09:00:00 |     0 |
+| Kaylie      | Seiwert   | 2019-09-21 09:00:00 |     1 |
+| Kaylie      | Seiwert   | 2019-09-28 09:00:00 |     0 |
+| Kaylie      | Seiwert   | 2019-10-05 09:00:00 |     1 |
+| Kaylie      | Seiwert   | 2019-09-14 09:00:00 |     1 |
+| Kaylie      | Seiwert   | 2019-10-12 09:00:00 |     0 |
+| Kaylie      | Seiwert   | 2019-09-14 09:00:00 |     0 |
+| Van Hilst   | Anna      | 2019-09-28 09:00:00 |     0 |
+| Van Hilst   | Anna      | 2019-10-05 09:00:00 |     1 |
+| Van Hilst   | Anna      | 2019-09-14 09:00:00 |     1 |
+| Van Hilst   | Anna      | 2019-10-12 09:00:00 |     0 |
+| Van Hilst   | Anna      | 2019-09-14 09:00:00 |     0 |
+| Van Hilst   | Anna      | 2019-09-21 09:00:00 |     1 |
+| Scarbarough | Seiwert   | 2019-09-21 09:00:00 |     1 |
+| Scarbarough | Seiwert   | 2019-09-28 09:00:00 |     0 |
+| Scarbarough | Seiwert   | 2019-09-28 09:00:00 |     0 |
+| Scarbarough | Seiwert   | 2019-10-05 09:00:00 |     1 |
+| Scarbarough | Seiwert   | 2019-09-14 09:00:00 |     1 |
+| Scarbarough | Seiwert   | 2019-09-14 09:00:00 |     0 |
+| Brian       | Van Hilst | 2019-10-05 09:00:00 |     1 |
+| Brian       | Van Hilst | 2019-09-14 09:00:00 |     1 |
+| Brian       | Van Hilst | 2019-09-14 09:00:00 |     0 |
+| Brian       | Van Hilst | 2019-09-21 09:00:00 |     1 |
+| Brian       | Van Hilst | 2019-09-28 09:00:00 |     0 |
+| Brian       | Van Hilst | 2019-09-28 09:00:00 |     0 |
+| Davis       | Sam       | 2019-09-14 09:00:00 |     0 |
+| Davis       | Sam       | 2019-09-21 09:00:00 |     1 |
+| Davis       | Sam       | 2019-09-28 09:00:00 |     0 |
+| Davis       | Sam       | 2019-09-28 09:00:00 |     0 |
+| Davis       | Sam       | 2019-10-05 09:00:00 |     1 |
+| Davis       | Sam       | 2019-09-14 09:00:00 |     1 |
+| Jousha      | Van Hilst | 2019-09-21 09:00:00 |     1 |
+| Jousha      | Van Hilst | 2019-09-28 09:00:00 |     0 |
+| Jousha      | Van Hilst | 2019-09-28 09:00:00 |     0 |
+| Jousha      | Van Hilst | 2019-10-05 09:00:00 |     1 |
+| Jousha      | Van Hilst | 2019-09-14 09:00:00 |     1 |
+| Jousha      | Van Hilst | 2019-09-14 09:00:00 |     0 |
+| Mike        | Grobmeir  | 2019-10-05 09:00:00 |     1 |
+| Mike        | Grobmeir  | 2019-09-14 09:00:00 |     1 |
+| Mike        | Grobmeir  | 2019-09-14 09:00:00 |     0 |
+| Mike        | Grobmeir  | 2019-09-21 09:00:00 |     1 |
+| Mike        | Grobmeir  | 2019-09-28 09:00:00 |     0 |
+| Mike        | Grobmeir  | 2019-09-28 09:00:00 |     0 |
+| Amber       | Marriot   | 2019-09-14 09:00:00 |     0 |
+| Amber       | Marriot   | 2019-09-21 09:00:00 |     1 |
+| Amber       | Marriot   | 2019-09-28 09:00:00 |     0 |
+| Amber       | Marriot   | 2019-09-28 09:00:00 |     0 |
+| Amber       | Marriot   | 2019-10-05 09:00:00 |     1 |
+| Amber       | Marriot   | 2019-09-14 09:00:00 |     1 |
+| Anna        | Brian     | 2019-09-28 09:00:00 |     0 |
+| Anna        | Brian     | 2019-09-28 09:00:00 |     0 |
+| Anna        | Brian     | 2019-10-05 09:00:00 |     1 |
+| Anna        | Brian     | 2019-09-14 09:00:00 |     1 |
+| Anna        | Brian     | 2019-09-14 09:00:00 |     0 |
+| Anna        | Brian     | 2019-09-21 09:00:00 |     1 |
+| Van Hilst   | Van Hilst | 2019-10-05 09:00:00 |     1 |
+| Van Hilst   | Van Hilst | 2019-09-14 09:00:00 |     1 |
+| Van Hilst   | Van Hilst | 2019-09-14 09:00:00 |     0 |
+| Van Hilst   | Van Hilst | 2019-09-21 09:00:00 |     1 |
+| Van Hilst   | Van Hilst | 2019-09-28 09:00:00 |     0 |
+| Van Hilst   | Van Hilst | 2019-09-28 09:00:00 |     0 |
+| David       | Joshua    | 2019-09-28 09:00:00 |     0 |
+| David       | Joshua    | 2019-09-21 09:00:00 |     0 |
+| David       | Joshua    | 2019-09-14 09:00:00 |     1 |
+| David       | Joshua    | 2019-09-14 09:00:00 |     0 |
+| David       | Joshua    | 2019-09-21 09:00:00 |     1 |
+| David       | Joshua    | 2019-09-28 09:00:00 |     1 |
+| Stoneman    | Prieur    | 2019-09-14 09:00:00 |     0 |
+| Stoneman    | Prieur    | 2019-09-21 09:00:00 |     1 |
+| Stoneman    | Prieur    | 2019-09-28 09:00:00 |     1 |
+| Stoneman    | Prieur    | 2019-09-28 09:00:00 |     0 |
+| Stoneman    | Prieur    | 2019-09-21 09:00:00 |     0 |
+| Stoneman    | Prieur    | 2019-09-14 09:00:00 |     1 |
+| Grobmeir    | Charlie   | 2019-09-21 09:00:00 |     1 |
+| Grobmeir    | Charlie   | 2019-09-28 09:00:00 |     1 |
+| Grobmeir    | Charlie   | 2019-09-28 09:00:00 |     0 |
+| Grobmeir    | Charlie   | 2019-09-21 09:00:00 |     0 |
+| Grobmeir    | Charlie   | 2019-09-14 09:00:00 |     1 |
+| Grobmeir    | Charlie   | 2019-09-14 09:00:00 |     0 |
+| Sam         | Sam       | 2019-09-28 09:00:00 |     0 |
+| Sam         | Sam       | 2019-09-21 09:00:00 |     0 |
+| Sam         | Sam       | 2019-09-14 09:00:00 |     1 |
+| Sam         | Sam       | 2019-09-14 09:00:00 |     0 |
+| Sam         | Sam       | 2019-09-21 09:00:00 |     1 |
+| Sam         | Sam       | 2019-09-28 09:00:00 |     1 |
+| Amber       | Heather   | 2019-09-14 09:00:00 |     0 |
+| Amber       | Heather   | 2019-09-21 09:00:00 |     1 |
+| Amber       | Heather   | 2019-09-28 09:00:00 |     1 |
+| Amber       | Heather   | 2019-09-28 09:00:00 |     0 |
+| Amber       | Heather   | 2019-09-21 09:00:00 |     0 |
+| Amber       | Heather   | 2019-09-14 09:00:00 |     1 |
+| Drew        | Drew      | 2019-09-21 09:00:00 |     1 |
+| Drew        | Drew      | 2019-09-28 09:00:00 |     1 |
+| Drew        | Drew      | 2019-09-28 09:00:00 |     0 |
+| Drew        | Drew      | 2019-09-21 09:00:00 |     0 |
+| Drew        | Drew      | 2019-09-14 09:00:00 |     1 |
+| Drew        | Drew      | 2019-09-14 09:00:00 |     0 |
+| Stoneman    | Brian     | 2019-09-14 09:00:00 |     1 |
+| Stoneman    | Brian     | 2019-09-14 09:00:00 |     0 |
+| Stoneman    | Brian     | 2019-09-21 09:00:00 |     1 |
+| Stoneman    | Brian     | 2019-09-28 09:00:00 |     1 |
+| Stoneman    | Brian     | 2019-09-28 09:00:00 |     0 |
+| Stoneman    | Brian     | 2019-09-21 09:00:00 |     0 |
+| Seiwert     | Mike      | 2019-09-14 09:00:00 |     0 |
+| Seiwert     | Mike      | 2019-09-21 09:00:00 |     1 |
+| Seiwert     | Mike      | 2019-09-28 09:00:00 |     1 |
+| Seiwert     | Mike      | 2019-09-28 09:00:00 |     0 |
+| Seiwert     | Mike      | 2019-09-21 09:00:00 |     0 |
+| Seiwert     | Mike      | 2019-09-14 09:00:00 |     1 |
+| Mike        | Drew      | 2019-09-14 09:00:00 |     1 |
+| Mike        | Drew      | 2019-09-14 09:00:00 |     0 |
+| Mike        | Drew      | 2019-10-05 09:00:00 |     0 |
+| Mike        | Drew      | 2019-09-21 09:00:00 |     1 |
+| Mike        | Drew      | 2019-09-28 09:00:00 |     1 |
+| Mike        | Drew      | 2019-09-21 09:00:00 |     0 |
+| Sam         | Prieur    | 2019-09-21 09:00:00 |     1 |
+| Sam         | Prieur    | 2019-09-28 09:00:00 |     1 |
+| Sam         | Prieur    | 2019-09-21 09:00:00 |     0 |
+| Sam         | Prieur    | 2019-09-14 09:00:00 |     1 |
+| Sam         | Prieur    | 2019-09-14 09:00:00 |     0 |
+| Sam         | Prieur    | 2019-10-05 09:00:00 |     0 |
+| Charlie     | Stoneman  | 2019-09-21 09:00:00 |     0 |
+| Charlie     | Stoneman  | 2019-09-14 09:00:00 |     1 |
+| Charlie     | Stoneman  | 2019-09-14 09:00:00 |     0 |
+| Charlie     | Stoneman  | 2019-10-05 09:00:00 |     0 |
+| Charlie     | Stoneman  | 2019-09-21 09:00:00 |     1 |
+| Charlie     | Stoneman  | 2019-09-28 09:00:00 |     1 |
+| Drew        | Heather   | 2019-09-14 09:00:00 |     1 |
+| Drew        | Heather   | 2019-09-14 09:00:00 |     0 |
+| Drew        | Heather   | 2019-10-05 09:00:00 |     0 |
+| Drew        | Heather   | 2019-09-21 09:00:00 |     1 |
+| Drew        | Heather   | 2019-09-28 09:00:00 |     1 |
+| Drew        | Heather   | 2019-09-21 09:00:00 |     0 |
+| Joshua      | Heather   | 2019-09-21 09:00:00 |     1 |
+| Joshua      | Heather   | 2019-09-28 09:00:00 |     1 |
+| Joshua      | Heather   | 2019-09-21 09:00:00 |     0 |
+| Joshua      | Heather   | 2019-09-14 09:00:00 |     1 |
+| Joshua      | Heather   | 2019-09-14 09:00:00 |     0 |
+| Joshua      | Heather   | 2019-10-05 09:00:00 |     0 |
+| Sam         | Mark      | 2019-09-21 09:00:00 |     0 |
+| Sam         | Mark      | 2019-09-14 09:00:00 |     1 |
+| Sam         | Mark      | 2019-09-14 09:00:00 |     0 |
+| Sam         | Mark      | 2019-10-05 09:00:00 |     0 |
+| Sam         | Mark      | 2019-09-21 09:00:00 |     1 |
+| Sam         | Mark      | 2019-09-28 09:00:00 |     1 |
+| Mike        | Drew      | 2019-09-14 09:00:00 |     0 |
+| Mike        | Drew      | 2019-10-05 09:00:00 |     0 |
+| Mike        | Drew      | 2019-09-21 09:00:00 |     1 |
+| Mike        | Drew      | 2019-09-28 09:00:00 |     1 |
+| Mike        | Drew      | 2019-09-21 09:00:00 |     0 |
+| Mike        | Drew      | 2019-09-14 09:00:00 |     1 |
+| David       | Stoneman  | 2019-09-21 09:00:00 |     1 |
+| David       | Stoneman  | 2019-09-28 09:00:00 |     1 |
+| David       | Stoneman  | 2019-09-21 09:00:00 |     0 |
+| David       | Stoneman  | 2019-09-14 09:00:00 |     1 |
+| David       | Stoneman  | 2019-09-14 09:00:00 |     0 |
+| David       | Stoneman  | 2019-10-05 09:00:00 |     0 |
+| Sam         | Charlie   | 2019-09-14 09:00:00 |     0 |
+| Sam         | Charlie   | 2019-10-05 09:00:00 |     0 |
+| Sam         | Charlie   | 2019-09-28 09:00:00 |     1 |
+| Sam         | Charlie   | 2019-09-21 09:00:00 |     0 |
+| Sam         | Charlie   | 2019-09-14 09:00:00 |     1 |
+| Sam         | Charlie   | 2019-10-19 09:00:00 |     1 |
+| Joshua      | Amber     | 2019-09-21 09:00:00 |     0 |
+| Joshua      | Amber     | 2019-09-14 09:00:00 |     1 |
+| Joshua      | Amber     | 2019-10-19 09:00:00 |     1 |
+| Joshua      | Amber     | 2019-09-14 09:00:00 |     0 |
+| Joshua      | Amber     | 2019-10-05 09:00:00 |     0 |
+| Joshua      | Amber     | 2019-09-28 09:00:00 |     1 |
+| Amber       | Mark      | 2019-09-14 09:00:00 |     1 |
+| Amber       | Mark      | 2019-10-19 09:00:00 |     1 |
+| Amber       | Mark      | 2019-09-14 09:00:00 |     0 |
+| Amber       | Mark      | 2019-10-05 09:00:00 |     0 |
+| Amber       | Mark      | 2019-09-28 09:00:00 |     1 |
+| Amber       | Mark      | 2019-09-21 09:00:00 |     0 |
+| Sam         | Burrell   | 2019-09-14 09:00:00 |     0 |
+| Sam         | Burrell   | 2019-10-05 09:00:00 |     0 |
+| Sam         | Burrell   | 2019-09-28 09:00:00 |     1 |
+| Sam         | Burrell   | 2019-09-21 09:00:00 |     0 |
+| Sam         | Burrell   | 2019-09-14 09:00:00 |     1 |
+| Sam         | Burrell   | 2019-10-19 09:00:00 |     1 |
+| Kaylie      | Kaylie    | 2019-09-21 09:00:00 |     0 |
+| Kaylie      | Kaylie    | 2019-09-14 09:00:00 |     1 |
+| Kaylie      | Kaylie    | 2019-10-19 09:00:00 |     1 |
+| Kaylie      | Kaylie    | 2019-09-14 09:00:00 |     0 |
+| Kaylie      | Kaylie    | 2019-10-05 09:00:00 |     0 |
+| Kaylie      | Kaylie    | 2019-09-28 09:00:00 |     1 |
+| Anna        | Drew      | 2019-09-14 09:00:00 |     1 |
+| Anna        | Drew      | 2019-10-19 09:00:00 |     1 |
+| Anna        | Drew      | 2019-09-14 09:00:00 |     0 |
+| Anna        | Drew      | 2019-10-05 09:00:00 |     0 |
+| Anna        | Drew      | 2019-09-28 09:00:00 |     1 |
+| Anna        | Drew      | 2019-09-21 09:00:00 |     0 |
+| Stoneman    | Kaylie    | 2019-09-28 09:00:00 |     1 |
+| Stoneman    | Kaylie    | 2019-09-21 09:00:00 |     0 |
+| Stoneman    | Kaylie    | 2019-09-14 09:00:00 |     1 |
+| Stoneman    | Kaylie    | 2019-10-19 09:00:00 |     1 |
+| Stoneman    | Kaylie    | 2019-09-14 09:00:00 |     0 |
+| Stoneman    | Kaylie    | 2019-10-05 09:00:00 |     0 |
+| Brian       | Kaylie    | 2019-09-21 09:00:00 |     0 |
+| Brian       | Kaylie    | 2019-09-14 09:00:00 |     1 |
+| Brian       | Kaylie    | 2019-10-19 09:00:00 |     1 |
+| Brian       | Kaylie    | 2019-09-14 09:00:00 |     0 |
+| Brian       | Kaylie    | 2019-10-05 09:00:00 |     0 |
+| Brian       | Kaylie    | 2019-09-28 09:00:00 |     1 |
+| David       | Drew      | 2019-09-28 09:00:00 |     1 |
+| David       | Drew      | 2019-09-21 09:00:00 |     0 |
+| David       | Drew      | 2019-10-19 09:00:00 |     0 |
+| David       | Drew      | 2019-09-14 09:00:00 |     1 |
+| David       | Drew      | 2019-10-12 09:00:00 |     1 |
+| David       | Drew      | 2019-10-05 09:00:00 |     0 |
+| Amber       | Sam       | 2019-09-14 09:00:00 |     1 |
+| Amber       | Sam       | 2019-10-12 09:00:00 |     1 |
+| Amber       | Sam       | 2019-10-05 09:00:00 |     0 |
+| Amber       | Sam       | 2019-09-28 09:00:00 |     1 |
+| Amber       | Sam       | 2019-09-21 09:00:00 |     0 |
+| Amber       | Sam       | 2019-10-19 09:00:00 |     0 |
+| Seiwert     | Davis     | 2019-10-05 09:00:00 |     0 |
+| Seiwert     | Davis     | 2019-09-28 09:00:00 |     1 |
+| Seiwert     | Davis     | 2019-09-21 09:00:00 |     0 |
+| Seiwert     | Davis     | 2019-10-19 09:00:00 |     0 |
+| Seiwert     | Davis     | 2019-09-14 09:00:00 |     1 |
+| Seiwert     | Davis     | 2019-10-12 09:00:00 |     1 |
+| Drew        | Prieur    | 2019-09-28 09:00:00 |     1 |
+| Drew        | Prieur    | 2019-09-21 09:00:00 |     0 |
+| Drew        | Prieur    | 2019-10-19 09:00:00 |     0 |
+| Drew        | Prieur    | 2019-09-14 09:00:00 |     1 |
+| Drew        | Prieur    | 2019-10-12 09:00:00 |     1 |
+| Drew        | Prieur    | 2019-10-05 09:00:00 |     0 |
+| Van Hilst   | Grobmeir  | 2019-09-14 09:00:00 |     1 |
+| Van Hilst   | Grobmeir  | 2019-10-12 09:00:00 |     1 |
+| Van Hilst   | Grobmeir  | 2019-10-05 09:00:00 |     0 |
+| Van Hilst   | Grobmeir  | 2019-09-28 09:00:00 |     1 |
+| Van Hilst   | Grobmeir  | 2019-09-21 09:00:00 |     0 |
+| Van Hilst   | Grobmeir  | 2019-10-19 09:00:00 |     0 |
+| Scarbarough | Van Hilst | 2019-10-05 09:00:00 |     0 |
+| Scarbarough | Van Hilst | 2019-09-28 09:00:00 |     1 |
+| Scarbarough | Van Hilst | 2019-09-21 09:00:00 |     0 |
+| Scarbarough | Van Hilst | 2019-10-19 09:00:00 |     0 |
+| Scarbarough | Van Hilst | 2019-09-14 09:00:00 |     1 |
+| Scarbarough | Van Hilst | 2019-10-12 09:00:00 |     1 |
+| Mark        | Lillian   | 2019-09-21 09:00:00 |     0 |
+| Mark        | Lillian   | 2019-10-19 09:00:00 |     0 |
+| Mark        | Lillian   | 2019-09-14 09:00:00 |     1 |
+| Mark        | Lillian   | 2019-10-12 09:00:00 |     1 |
+| Mark        | Lillian   | 2019-10-05 09:00:00 |     0 |
+| Mark        | Lillian   | 2019-09-28 09:00:00 |     1 |
+| Lillian     | Anna      | 2019-09-14 09:00:00 |     1 |
+| Lillian     | Anna      | 2019-10-12 09:00:00 |     1 |
+| Lillian     | Anna      | 2019-10-05 09:00:00 |     0 |
+| Lillian     | Anna      | 2019-09-28 09:00:00 |     1 |
+| Lillian     | Anna      | 2019-09-21 09:00:00 |     0 |
+| Lillian     | Anna      | 2019-10-19 09:00:00 |     0 |
++-------------+-----------+---------------------+-------+
+336 rows in set (0.01 sec)
+
++-------------+-----------+---------------------+-------+----------+
+| first       | last      | arrival             | snack | against  |
++-------------+-----------+---------------------+-------+----------+
+| Anna        | Brian     | 2019-09-14 09:00:00 |     0 | Eels     |
+| Kaylie      | Seiwert   | 2019-09-14 09:00:00 |     0 | Salmon   |
+| Joshua      | Drew      | 2019-09-14 09:00:00 |     0 | Porpoise |
+| Stoneman    | Kaylie    | 2019-09-14 09:00:00 |     0 | Sharks   |
+| Mike        | Drew      | 2019-09-14 09:00:00 |     0 | Whales   |
+| Stoneman    | Brian     | 2019-09-14 09:00:00 |     0 | Pirhanas |
+| Drew        | Drew      | 2019-09-14 09:00:00 |     1 | Salmon   |
+| Amber       | Marriot   | 2019-09-14 09:00:00 |     1 | Porpoise |
+| Charlie     | Van Hilst | 2019-09-14 09:00:00 |     1 | Otters   |
+| Scarbarough | Van Hilst | 2019-09-14 09:00:00 |     1 | Whales   |
+| Anna        | Drew      | 2019-09-14 09:00:00 |     1 | Pirhanas |
+| Sam         | Mark      | 2019-09-14 09:00:00 |     1 | Eels     |
+| Mike        | Grobmeir  | 2019-09-14 09:00:00 |     0 | Eels     |
+| Davis       | Kaylie    | 2019-09-14 09:00:00 |     0 | Salmon   |
+| David       | Burrell   | 2019-09-14 09:00:00 |     0 | Porpoise |
+| Kaylie      | Kaylie    | 2019-09-14 09:00:00 |     0 | Sharks   |
+| Joshua      | Heather   | 2019-09-14 09:00:00 |     0 | Whales   |
+| Amber       | Heather   | 2019-09-14 09:00:00 |     0 | Pirhanas |
+| Sam         | Sam       | 2019-09-14 09:00:00 |     1 | Salmon   |
+| Jousha      | Van Hilst | 2019-09-14 09:00:00 |     1 | Porpoise |
+| Sam         | Seiwert   | 2019-09-14 09:00:00 |     1 | Otters   |
+| Drew        | Prieur    | 2019-09-14 09:00:00 |     1 | Whales   |
+| Sam         | Burrell   | 2019-09-14 09:00:00 |     1 | Pirhanas |
+| Drew        | Heather   | 2019-09-14 09:00:00 |     1 | Eels     |
+| Davis       | Sam       | 2019-09-14 09:00:00 |     0 | Eels     |
+| Prieur      | Prieur    | 2019-09-14 09:00:00 |     0 | Salmon   |
+| Sam         | Mark      | 2019-09-14 09:00:00 |     0 | Porpoise |
+| Amber       | Mark      | 2019-09-14 09:00:00 |     0 | Sharks   |
+| Charlie     | Stoneman  | 2019-09-14 09:00:00 |     0 | Whales   |
+| Grobmeir    | Charlie   | 2019-09-14 09:00:00 |     0 | Pirhanas |
+| Stoneman    | Prieur    | 2019-09-14 09:00:00 |     1 | Salmon   |
+| Brian       | Van Hilst | 2019-09-14 09:00:00 |     1 | Porpoise |
+| Mike        | Grobmeir  | 2019-09-14 09:00:00 |     1 | Otters   |
+| Amber       | Sam       | 2019-09-14 09:00:00 |     1 | Whales   |
+| Joshua      | Amber     | 2019-09-14 09:00:00 |     1 | Pirhanas |
+| Sam         | Prieur    | 2019-09-14 09:00:00 |     1 | Eels     |
+| Scarbarough | Seiwert   | 2019-09-14 09:00:00 |     0 | Eels     |
+| Burrell     | Brian     | 2019-09-14 09:00:00 |     0 | Salmon   |
+| Mark        | Heather   | 2019-09-14 09:00:00 |     0 | Porpoise |
+| Sam         | Charlie   | 2019-09-14 09:00:00 |     0 | Sharks   |
+| Mike        | Drew      | 2019-09-14 09:00:00 |     0 | Whales   |
+| David       | Joshua    | 2019-09-14 09:00:00 |     0 | Pirhanas |
+| Van Hilst   | Van Hilst | 2019-09-14 09:00:00 |     0 | Eels     |
+| Van Hilst   | Anna      | 2019-09-14 09:00:00 |     0 | Salmon   |
+| Seiwert     | Marriot   | 2019-09-14 09:00:00 |     0 | Porpoise |
+| Brian       | Kaylie    | 2019-09-14 09:00:00 |     0 | Sharks   |
+| David       | Stoneman  | 2019-09-14 09:00:00 |     0 | Whales   |
+| Seiwert     | Mike      | 2019-09-14 09:00:00 |     0 | Pirhanas |
+| Anna        | Brian     | 2019-09-14 09:00:00 |     1 | Porpoise |
+| Kaylie      | Seiwert   | 2019-09-14 09:00:00 |     1 | Otters   |
+| Mark        | Lillian   | 2019-09-14 09:00:00 |     1 | Whales   |
+| Stoneman    | Kaylie    | 2019-09-14 09:00:00 |     1 | Pirhanas |
+| Mike        | Drew      | 2019-09-14 09:00:00 |     1 | Eels     |
+| Stoneman    | Brian     | 2019-09-14 09:00:00 |     1 | Salmon   |
+| Amber       | Marriot   | 2019-09-14 09:00:00 |     0 | Eels     |
+| Charlie     | Van Hilst | 2019-09-14 09:00:00 |     0 | Salmon   |
+| Grobmeir    | Kaylie    | 2019-09-14 09:00:00 |     0 | Porpoise |
+| Anna        | Drew      | 2019-09-14 09:00:00 |     0 | Sharks   |
+| Sam         | Mark      | 2019-09-14 09:00:00 |     0 | Whales   |
+| Drew        | Drew      | 2019-09-14 09:00:00 |     0 | Pirhanas |
+| Amber       | Heather   | 2019-09-14 09:00:00 |     1 | Salmon   |
+| Mike        | Grobmeir  | 2019-09-14 09:00:00 |     1 | Porpoise |
+| Davis       | Kaylie    | 2019-09-14 09:00:00 |     1 | Otters   |
+| Van Hilst   | Grobmeir  | 2019-09-14 09:00:00 |     1 | Whales   |
+| Kaylie      | Kaylie    | 2019-09-14 09:00:00 |     1 | Pirhanas |
+| Joshua      | Heather   | 2019-09-14 09:00:00 |     1 | Eels     |
+| Jousha      | Van Hilst | 2019-09-14 09:00:00 |     0 | Eels     |
+| Sam         | Seiwert   | 2019-09-14 09:00:00 |     0 | Salmon   |
+| Heather     | Mike      | 2019-09-14 09:00:00 |     0 | Porpoise |
+| Sam         | Burrell   | 2019-09-14 09:00:00 |     0 | Sharks   |
+| Drew        | Heather   | 2019-09-14 09:00:00 |     0 | Whales   |
+| Sam         | Sam       | 2019-09-14 09:00:00 |     0 | Pirhanas |
+| Grobmeir    | Charlie   | 2019-09-14 09:00:00 |     1 | Salmon   |
+| Davis       | Sam       | 2019-09-14 09:00:00 |     1 | Porpoise |
+| Prieur      | Prieur    | 2019-09-14 09:00:00 |     1 | Otters   |
+| Seiwert     | Davis     | 2019-09-14 09:00:00 |     1 | Whales   |
+| Amber       | Mark      | 2019-09-14 09:00:00 |     1 | Pirhanas |
+| Charlie     | Stoneman  | 2019-09-14 09:00:00 |     1 | Eels     |
+| Brian       | Van Hilst | 2019-09-14 09:00:00 |     0 | Eels     |
+| Mike        | Grobmeir  | 2019-09-14 09:00:00 |     0 | Salmon   |
+| Amber       | Heather   | 2019-09-14 09:00:00 |     0 | Porpoise |
+| Joshua      | Amber     | 2019-09-14 09:00:00 |     0 | Sharks   |
+| Sam         | Prieur    | 2019-09-14 09:00:00 |     0 | Whales   |
+| Stoneman    | Prieur    | 2019-09-14 09:00:00 |     0 | Pirhanas |
+| David       | Joshua    | 2019-09-14 09:00:00 |     1 | Salmon   |
+| Scarbarough | Seiwert   | 2019-09-14 09:00:00 |     1 | Porpoise |
+| Burrell     | Brian     | 2019-09-14 09:00:00 |     1 | Otters   |
+| David       | Drew      | 2019-09-14 09:00:00 |     1 | Whales   |
+| Sam         | Charlie   | 2019-09-14 09:00:00 |     1 | Pirhanas |
+| Mike        | Drew      | 2019-09-14 09:00:00 |     1 | Eels     |
+| Van Hilst   | Van Hilst | 2019-09-14 09:00:00 |     1 | Porpoise |
+| Van Hilst   | Anna      | 2019-09-14 09:00:00 |     1 | Otters   |
+| Lillian     | Anna      | 2019-09-14 09:00:00 |     1 | Whales   |
+| Brian       | Kaylie    | 2019-09-14 09:00:00 |     1 | Pirhanas |
+| David       | Stoneman  | 2019-09-14 09:00:00 |     1 | Eels     |
+| Seiwert     | Mike      | 2019-09-14 09:00:00 |     1 | Salmon   |
+| Stoneman    | Brian     | 2019-09-21 09:00:00 |     0 | Porpoise |
+| Mark        | Lillian   | 2019-09-21 09:00:00 |     0 | Pirhanas |
+| Stoneman    | Kaylie    | 2019-09-21 09:00:00 |     0 | Eels     |
+| Mike        | Drew      | 2019-09-21 09:00:00 |     0 | Salmon   |
+| Charlie     | Van Hilst | 2019-09-21 09:00:00 |     1 | Eels     |
+| Sam         | Mark      | 2019-09-21 09:00:00 |     1 | Sharks   |
+| Drew        | Drew      | 2019-09-21 09:00:00 |     1 | Whales   |
+| Amber       | Marriot   | 2019-09-21 09:00:00 |     1 | Pirhanas |
+| Amber       | Heather   | 2019-09-21 09:00:00 |     0 | Porpoise |
+| Van Hilst   | Grobmeir  | 2019-09-21 09:00:00 |     0 | Pirhanas |
+| Kaylie      | Kaylie    | 2019-09-21 09:00:00 |     0 | Eels     |
+| Joshua      | Heather   | 2019-09-21 09:00:00 |     0 | Salmon   |
+| Sam         | Seiwert   | 2019-09-21 09:00:00 |     1 | Eels     |
+| Drew        | Heather   | 2019-09-21 09:00:00 |     1 | Sharks   |
+| Sam         | Sam       | 2019-09-21 09:00:00 |     1 | Whales   |
+| Jousha      | Van Hilst | 2019-09-21 09:00:00 |     1 | Pirhanas |
+| Grobmeir    | Charlie   | 2019-09-21 09:00:00 |     0 | Porpoise |
+| Seiwert     | Davis     | 2019-09-21 09:00:00 |     0 | Pirhanas |
+| Amber       | Mark      | 2019-09-21 09:00:00 |     0 | Eels     |
+| Charlie     | Stoneman  | 2019-09-21 09:00:00 |     0 | Salmon   |
+| Mike        | Grobmeir  | 2019-09-21 09:00:00 |     1 | Eels     |
+| Sam         | Prieur    | 2019-09-21 09:00:00 |     1 | Sharks   |
+| Stoneman    | Prieur    | 2019-09-21 09:00:00 |     1 | Whales   |
+| Brian       | Van Hilst | 2019-09-21 09:00:00 |     1 | Pirhanas |
+| David       | Joshua    | 2019-09-21 09:00:00 |     0 | Porpoise |
+| David       | Drew      | 2019-09-21 09:00:00 |     0 | Pirhanas |
+| Sam         | Charlie   | 2019-09-21 09:00:00 |     0 | Eels     |
+| Mike        | Drew      | 2019-09-21 09:00:00 |     0 | Salmon   |
+| Seiwert     | Mike      | 2019-09-21 09:00:00 |     0 | Porpoise |
+| Lillian     | Anna      | 2019-09-21 09:00:00 |     0 | Pirhanas |
+| Brian       | Kaylie    | 2019-09-21 09:00:00 |     0 | Eels     |
+| David       | Stoneman  | 2019-09-21 09:00:00 |     0 | Salmon   |
+| Kaylie      | Seiwert   | 2019-09-21 09:00:00 |     1 | Eels     |
+| Mike        | Drew      | 2019-09-21 09:00:00 |     1 | Sharks   |
+| Stoneman    | Brian     | 2019-09-21 09:00:00 |     1 | Whales   |
+| Anna        | Brian     | 2019-09-21 09:00:00 |     1 | Pirhanas |
+| Drew        | Drew      | 2019-09-21 09:00:00 |     0 | Porpoise |
+| Scarbarough | Van Hilst | 2019-09-21 09:00:00 |     0 | Pirhanas |
+| Anna        | Drew      | 2019-09-21 09:00:00 |     0 | Eels     |
+| Sam         | Mark      | 2019-09-21 09:00:00 |     0 | Salmon   |
+| Davis       | Kaylie    | 2019-09-21 09:00:00 |     1 | Eels     |
+| Joshua      | Heather   | 2019-09-21 09:00:00 |     1 | Sharks   |
+| Amber       | Heather   | 2019-09-21 09:00:00 |     1 | Whales   |
+| Mike        | Grobmeir  | 2019-09-21 09:00:00 |     1 | Pirhanas |
+| Sam         | Sam       | 2019-09-21 09:00:00 |     0 | Porpoise |
+| Drew        | Prieur    | 2019-09-21 09:00:00 |     0 | Pirhanas |
+| Sam         | Burrell   | 2019-09-21 09:00:00 |     0 | Eels     |
+| Drew        | Heather   | 2019-09-21 09:00:00 |     0 | Salmon   |
+| Prieur      | Prieur    | 2019-09-21 09:00:00 |     1 | Eels     |
+| Charlie     | Stoneman  | 2019-09-21 09:00:00 |     1 | Sharks   |
+| Grobmeir    | Charlie   | 2019-09-21 09:00:00 |     1 | Whales   |
+| Davis       | Sam       | 2019-09-21 09:00:00 |     1 | Pirhanas |
+| Stoneman    | Prieur    | 2019-09-21 09:00:00 |     0 | Porpoise |
+| Amber       | Sam       | 2019-09-21 09:00:00 |     0 | Pirhanas |
+| Joshua      | Amber     | 2019-09-21 09:00:00 |     0 | Eels     |
+| Sam         | Prieur    | 2019-09-21 09:00:00 |     0 | Salmon   |
+| Burrell     | Brian     | 2019-09-21 09:00:00 |     1 | Eels     |
+| Mike        | Drew      | 2019-09-21 09:00:00 |     1 | Sharks   |
+| David       | Joshua    | 2019-09-21 09:00:00 |     1 | Whales   |
+| Scarbarough | Seiwert   | 2019-09-21 09:00:00 |     1 | Pirhanas |
+| Van Hilst   | Anna      | 2019-09-21 09:00:00 |     1 | Eels     |
+| David       | Stoneman  | 2019-09-21 09:00:00 |     1 | Sharks   |
+| Seiwert     | Mike      | 2019-09-21 09:00:00 |     1 | Whales   |
+| Van Hilst   | Van Hilst | 2019-09-21 09:00:00 |     1 | Pirhanas |
+| Joshua      | Drew      | 2019-09-28 09:00:00 |     0 | Eels     |
+| Anna        | Brian     | 2019-09-28 09:00:00 |     0 | Otters   |
+| Stoneman    | Brian     | 2019-09-28 09:00:00 |     0 | Sharks   |
+| Anna        | Brian     | 2019-09-28 09:00:00 |     0 | Whales   |
+| Kaylie      | Seiwert   | 2019-09-28 09:00:00 |     0 | Pirhanas |
+| Drew        | Drew      | 2019-09-28 09:00:00 |     1 | Otters   |
+| Grobmeir    | Kaylie    | 2019-09-28 09:00:00 |     1 | Salmon   |
+| Scarbarough | Van Hilst | 2019-09-28 09:00:00 |     1 | Eels     |
+| Anna        | Drew      | 2019-09-28 09:00:00 |     1 | Salmon   |
+| Sam         | Mark      | 2019-09-28 09:00:00 |     1 | Porpoise |
+| David       | Burrell   | 2019-09-28 09:00:00 |     0 | Eels     |
+| Mike        | Grobmeir  | 2019-09-28 09:00:00 |     0 | Otters   |
+| Amber       | Heather   | 2019-09-28 09:00:00 |     0 | Sharks   |
+| Mike        | Grobmeir  | 2019-09-28 09:00:00 |     0 | Whales   |
+| Davis       | Kaylie    | 2019-09-28 09:00:00 |     0 | Pirhanas |
+| Sam         | Sam       | 2019-09-28 09:00:00 |     1 | Otters   |
+| Heather     | Mike      | 2019-09-28 09:00:00 |     1 | Salmon   |
+| Drew        | Prieur    | 2019-09-28 09:00:00 |     1 | Eels     |
+| Sam         | Burrell   | 2019-09-28 09:00:00 |     1 | Salmon   |
+| Drew        | Heather   | 2019-09-28 09:00:00 |     1 | Porpoise |
+| Sam         | Mark      | 2019-09-28 09:00:00 |     0 | Eels     |
+| Davis       | Sam       | 2019-09-28 09:00:00 |     0 | Otters   |
+| Grobmeir    | Charlie   | 2019-09-28 09:00:00 |     0 | Sharks   |
+| Davis       | Sam       | 2019-09-28 09:00:00 |     0 | Whales   |
+| Prieur      | Prieur    | 2019-09-28 09:00:00 |     0 | Pirhanas |
+| Stoneman    | Prieur    | 2019-09-28 09:00:00 |     1 | Otters   |
+| Amber       | Heather   | 2019-09-28 09:00:00 |     1 | Salmon   |
+| Amber       | Sam       | 2019-09-28 09:00:00 |     1 | Eels     |
+| Joshua      | Amber     | 2019-09-28 09:00:00 |     1 | Salmon   |
+| Sam         | Prieur    | 2019-09-28 09:00:00 |     1 | Porpoise |
+| Mark        | Heather   | 2019-09-28 09:00:00 |     0 | Eels     |
+| Scarbarough | Seiwert   | 2019-09-28 09:00:00 |     0 | Otters   |
+| David       | Joshua    | 2019-09-28 09:00:00 |     0 | Sharks   |
+| Scarbarough | Seiwert   | 2019-09-28 09:00:00 |     0 | Whales   |
+| Burrell     | Brian     | 2019-09-28 09:00:00 |     0 | Pirhanas |
+| Seiwert     | Marriot   | 2019-09-28 09:00:00 |     0 | Eels     |
+| Van Hilst   | Van Hilst | 2019-09-28 09:00:00 |     0 | Otters   |
+| Seiwert     | Mike      | 2019-09-28 09:00:00 |     0 | Sharks   |
+| Van Hilst   | Van Hilst | 2019-09-28 09:00:00 |     0 | Whales   |
+| Van Hilst   | Anna      | 2019-09-28 09:00:00 |     0 | Pirhanas |
+| Stoneman    | Brian     | 2019-09-28 09:00:00 |     1 | Otters   |
+| Joshua      | Drew      | 2019-09-28 09:00:00 |     1 | Salmon   |
+| Mark        | Lillian   | 2019-09-28 09:00:00 |     1 | Eels     |
+| Stoneman    | Kaylie    | 2019-09-28 09:00:00 |     1 | Salmon   |
+| Mike        | Drew      | 2019-09-28 09:00:00 |     1 | Porpoise |
+| Grobmeir    | Kaylie    | 2019-09-28 09:00:00 |     0 | Eels     |
+| Amber       | Marriot   | 2019-09-28 09:00:00 |     0 | Otters   |
+| Drew        | Drew      | 2019-09-28 09:00:00 |     0 | Sharks   |
+| Amber       | Marriot   | 2019-09-28 09:00:00 |     0 | Whales   |
+| Charlie     | Van Hilst | 2019-09-28 09:00:00 |     0 | Pirhanas |
+| Amber       | Heather   | 2019-09-28 09:00:00 |     1 | Otters   |
+| David       | Burrell   | 2019-09-28 09:00:00 |     1 | Salmon   |
+| Van Hilst   | Grobmeir  | 2019-09-28 09:00:00 |     1 | Eels     |
+| Kaylie      | Kaylie    | 2019-09-28 09:00:00 |     1 | Salmon   |
+| Joshua      | Heather   | 2019-09-28 09:00:00 |     1 | Porpoise |
+| Heather     | Mike      | 2019-09-28 09:00:00 |     0 | Eels     |
+| Jousha      | Van Hilst | 2019-09-28 09:00:00 |     0 | Otters   |
+| Sam         | Sam       | 2019-09-28 09:00:00 |     0 | Sharks   |
+| Jousha      | Van Hilst | 2019-09-28 09:00:00 |     0 | Whales   |
+| Sam         | Seiwert   | 2019-09-28 09:00:00 |     0 | Pirhanas |
+| Grobmeir    | Charlie   | 2019-09-28 09:00:00 |     1 | Otters   |
+| Sam         | Mark      | 2019-09-28 09:00:00 |     1 | Salmon   |
+| Seiwert     | Davis     | 2019-09-28 09:00:00 |     1 | Eels     |
+| Amber       | Mark      | 2019-09-28 09:00:00 |     1 | Salmon   |
+| Charlie     | Stoneman  | 2019-09-28 09:00:00 |     1 | Porpoise |
+| Amber       | Heather   | 2019-09-28 09:00:00 |     0 | Eels     |
+| Brian       | Van Hilst | 2019-09-28 09:00:00 |     0 | Otters   |
+| Stoneman    | Prieur    | 2019-09-28 09:00:00 |     0 | Sharks   |
+| Brian       | Van Hilst | 2019-09-28 09:00:00 |     0 | Whales   |
+| Mike        | Grobmeir  | 2019-09-28 09:00:00 |     0 | Pirhanas |
+| David       | Joshua    | 2019-09-28 09:00:00 |     1 | Otters   |
+| Mark        | Heather   | 2019-09-28 09:00:00 |     1 | Salmon   |
+| David       | Drew      | 2019-09-28 09:00:00 |     1 | Eels     |
+| Sam         | Charlie   | 2019-09-28 09:00:00 |     1 | Salmon   |
+| Mike        | Drew      | 2019-09-28 09:00:00 |     1 | Porpoise |
+| Seiwert     | Mike      | 2019-09-28 09:00:00 |     1 | Otters   |
+| Seiwert     | Marriot   | 2019-09-28 09:00:00 |     1 | Salmon   |
+| Lillian     | Anna      | 2019-09-28 09:00:00 |     1 | Eels     |
+| Brian       | Kaylie    | 2019-09-28 09:00:00 |     1 | Salmon   |
+| David       | Stoneman  | 2019-09-28 09:00:00 |     1 | Porpoise |
+| Mark        | Lillian   | 2019-10-05 09:00:00 |     0 | Salmon   |
+| Stoneman    | Kaylie    | 2019-10-05 09:00:00 |     0 | Porpoise |
+| Mike        | Drew      | 2019-10-05 09:00:00 |     0 | Otters   |
+| Amber       | Marriot   | 2019-10-05 09:00:00 |     1 | Sharks   |
+| Charlie     | Van Hilst | 2019-10-05 09:00:00 |     1 | Whales   |
+| Grobmeir    | Kaylie    | 2019-10-05 09:00:00 |     1 | Pirhanas |
+| Van Hilst   | Grobmeir  | 2019-10-05 09:00:00 |     0 | Salmon   |
+| Kaylie      | Kaylie    | 2019-10-05 09:00:00 |     0 | Porpoise |
+| Joshua      | Heather   | 2019-10-05 09:00:00 |     0 | Otters   |
+| Jousha      | Van Hilst | 2019-10-05 09:00:00 |     1 | Sharks   |
+| Sam         | Seiwert   | 2019-10-05 09:00:00 |     1 | Whales   |
+| Heather     | Mike      | 2019-10-05 09:00:00 |     1 | Pirhanas |
+| Seiwert     | Davis     | 2019-10-05 09:00:00 |     0 | Salmon   |
+| Amber       | Mark      | 2019-10-05 09:00:00 |     0 | Porpoise |
+| Charlie     | Stoneman  | 2019-10-05 09:00:00 |     0 | Otters   |
+| Brian       | Van Hilst | 2019-10-05 09:00:00 |     1 | Sharks   |
+| Mike        | Grobmeir  | 2019-10-05 09:00:00 |     1 | Whales   |
+| Amber       | Heather   | 2019-10-05 09:00:00 |     1 | Pirhanas |
+| David       | Drew      | 2019-10-05 09:00:00 |     0 | Salmon   |
+| Sam         | Charlie   | 2019-10-05 09:00:00 |     0 | Porpoise |
+| Mike        | Drew      | 2019-10-05 09:00:00 |     0 | Otters   |
+| Lillian     | Anna      | 2019-10-05 09:00:00 |     0 | Salmon   |
+| Brian       | Kaylie    | 2019-10-05 09:00:00 |     0 | Porpoise |
+| David       | Stoneman  | 2019-10-05 09:00:00 |     0 | Otters   |
+| Anna        | Brian     | 2019-10-05 09:00:00 |     1 | Sharks   |
+| Kaylie      | Seiwert   | 2019-10-05 09:00:00 |     1 | Whales   |
+| Joshua      | Drew      | 2019-10-05 09:00:00 |     1 | Pirhanas |
+| Scarbarough | Van Hilst | 2019-10-05 09:00:00 |     0 | Salmon   |
+| Anna        | Drew      | 2019-10-05 09:00:00 |     0 | Porpoise |
+| Sam         | Mark      | 2019-10-05 09:00:00 |     0 | Otters   |
+| Mike        | Grobmeir  | 2019-10-05 09:00:00 |     1 | Sharks   |
+| Davis       | Kaylie    | 2019-10-05 09:00:00 |     1 | Whales   |
+| David       | Burrell   | 2019-10-05 09:00:00 |     1 | Pirhanas |
+| Drew        | Prieur    | 2019-10-05 09:00:00 |     0 | Salmon   |
+| Sam         | Burrell   | 2019-10-05 09:00:00 |     0 | Porpoise |
+| Drew        | Heather   | 2019-10-05 09:00:00 |     0 | Otters   |
+| Davis       | Sam       | 2019-10-05 09:00:00 |     1 | Sharks   |
+| Prieur      | Prieur    | 2019-10-05 09:00:00 |     1 | Whales   |
+| Sam         | Mark      | 2019-10-05 09:00:00 |     1 | Pirhanas |
+| Amber       | Sam       | 2019-10-05 09:00:00 |     0 | Salmon   |
+| Joshua      | Amber     | 2019-10-05 09:00:00 |     0 | Porpoise |
+| Sam         | Prieur    | 2019-10-05 09:00:00 |     0 | Otters   |
+| Scarbarough | Seiwert   | 2019-10-05 09:00:00 |     1 | Sharks   |
+| Burrell     | Brian     | 2019-10-05 09:00:00 |     1 | Whales   |
+| Mark        | Heather   | 2019-10-05 09:00:00 |     1 | Pirhanas |
+| Van Hilst   | Van Hilst | 2019-10-05 09:00:00 |     1 | Sharks   |
+| Van Hilst   | Anna      | 2019-10-05 09:00:00 |     1 | Whales   |
+| Seiwert     | Marriot   | 2019-10-05 09:00:00 |     1 | Pirhanas |
+| Kaylie      | Seiwert   | 2019-10-12 09:00:00 |     0 | Sharks   |
+| Scarbarough | Van Hilst | 2019-10-12 09:00:00 |     1 | Porpoise |
+| Davis       | Kaylie    | 2019-10-12 09:00:00 |     0 | Sharks   |
+| Drew        | Prieur    | 2019-10-12 09:00:00 |     1 | Porpoise |
+| Prieur      | Prieur    | 2019-10-12 09:00:00 |     0 | Sharks   |
+| Amber       | Sam       | 2019-10-12 09:00:00 |     1 | Porpoise |
+| Burrell     | Brian     | 2019-10-12 09:00:00 |     0 | Sharks   |
+| Van Hilst   | Anna      | 2019-10-12 09:00:00 |     0 | Sharks   |
+| Mark        | Lillian   | 2019-10-12 09:00:00 |     1 | Porpoise |
+| Charlie     | Van Hilst | 2019-10-12 09:00:00 |     0 | Sharks   |
+| Van Hilst   | Grobmeir  | 2019-10-12 09:00:00 |     1 | Porpoise |
+| Sam         | Seiwert   | 2019-10-12 09:00:00 |     0 | Sharks   |
+| Seiwert     | Davis     | 2019-10-12 09:00:00 |     1 | Porpoise |
+| Mike        | Grobmeir  | 2019-10-12 09:00:00 |     0 | Sharks   |
+| David       | Drew      | 2019-10-12 09:00:00 |     1 | Porpoise |
+| Lillian     | Anna      | 2019-10-12 09:00:00 |     1 | Porpoise |
+| Mark        | Lillian   | 2019-10-19 09:00:00 |     0 | Otters   |
+| Joshua      | Drew      | 2019-10-19 09:00:00 |     0 | Whales   |
+| Grobmeir    | Kaylie    | 2019-10-19 09:00:00 |     1 | Sharks   |
+| Anna        | Drew      | 2019-10-19 09:00:00 |     1 | Otters   |
+| Van Hilst   | Grobmeir  | 2019-10-19 09:00:00 |     0 | Otters   |
+| David       | Burrell   | 2019-10-19 09:00:00 |     0 | Whales   |
+| Heather     | Mike      | 2019-10-19 09:00:00 |     1 | Sharks   |
+| Sam         | Burrell   | 2019-10-19 09:00:00 |     1 | Otters   |
+| Seiwert     | Davis     | 2019-10-19 09:00:00 |     0 | Otters   |
+| Sam         | Mark      | 2019-10-19 09:00:00 |     0 | Whales   |
+| Amber       | Heather   | 2019-10-19 09:00:00 |     1 | Sharks   |
+| Joshua      | Amber     | 2019-10-19 09:00:00 |     1 | Otters   |
+| David       | Drew      | 2019-10-19 09:00:00 |     0 | Otters   |
+| Mark        | Heather   | 2019-10-19 09:00:00 |     0 | Whales   |
+| Lillian     | Anna      | 2019-10-19 09:00:00 |     0 | Otters   |
+| Seiwert     | Marriot   | 2019-10-19 09:00:00 |     0 | Whales   |
+| Joshua      | Drew      | 2019-10-19 09:00:00 |     1 | Sharks   |
+| Stoneman    | Kaylie    | 2019-10-19 09:00:00 |     1 | Otters   |
+| Scarbarough | Van Hilst | 2019-10-19 09:00:00 |     0 | Otters   |
+| Grobmeir    | Kaylie    | 2019-10-19 09:00:00 |     0 | Whales   |
+| David       | Burrell   | 2019-10-19 09:00:00 |     1 | Sharks   |
+| Kaylie      | Kaylie    | 2019-10-19 09:00:00 |     1 | Otters   |
+| Drew        | Prieur    | 2019-10-19 09:00:00 |     0 | Otters   |
+| Heather     | Mike      | 2019-10-19 09:00:00 |     0 | Whales   |
+| Sam         | Mark      | 2019-10-19 09:00:00 |     1 | Sharks   |
+| Amber       | Mark      | 2019-10-19 09:00:00 |     1 | Otters   |
+| Amber       | Sam       | 2019-10-19 09:00:00 |     0 | Otters   |
+| Amber       | Heather   | 2019-10-19 09:00:00 |     0 | Whales   |
+| Mark        | Heather   | 2019-10-19 09:00:00 |     1 | Sharks   |
+| Sam         | Charlie   | 2019-10-19 09:00:00 |     1 | Otters   |
+| Seiwert     | Marriot   | 2019-10-19 09:00:00 |     1 | Sharks   |
+| Brian       | Kaylie    | 2019-10-19 09:00:00 |     1 | Otters   |
++-------------+-----------+---------------------+-------+----------+
+336 rows in set (0.00 sec)
+
++-----------------------+---------------------+-------+----------+------------------+
+| player                | arrival             | snack | against  | lead_by          |
++-----------------------+---------------------+-------+----------+------------------+
+| Amber Heather         | 2019-10-19 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Amber Heather         | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Amber Heather         | 2019-09-21 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Amber Heather         | 2019-09-28 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Amber Heather         | 2019-09-14 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Amber Heather         | 2019-09-14 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Amber Heather         | 2019-09-14 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Amber Heather         | 2019-10-05 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Amber Heather         | 2019-09-28 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Amber Heather         | 2019-09-21 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Amber Heather         | 2019-09-28 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Amber Heather         | 2019-10-19 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Amber Mark            | 2019-10-05 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Amber Mark            | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Amber Mark            | 2019-09-21 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Amber Mark            | 2019-09-14 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Amber Mark            | 2019-09-14 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Amber Mark            | 2019-10-19 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Amber Marriot         | 2019-10-05 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Amber Marriot         | 2019-09-28 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Amber Marriot         | 2019-09-28 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Amber Marriot         | 2019-09-14 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Amber Marriot         | 2019-09-21 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Amber Marriot         | 2019-09-14 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Amber Sam             | 2019-09-14 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Amber Sam             | 2019-10-05 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Amber Sam             | 2019-10-19 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Amber Sam             | 2019-10-12 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Amber Sam             | 2019-09-28 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Amber Sam             | 2019-09-21 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Anna Brian            | 2019-09-14 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Anna Brian            | 2019-09-14 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Anna Brian            | 2019-09-28 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Anna Brian            | 2019-10-05 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Anna Brian            | 2019-09-28 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Anna Brian            | 2019-09-21 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Anna Drew             | 2019-09-14 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Anna Drew             | 2019-09-21 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Anna Drew             | 2019-09-14 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Anna Drew             | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Anna Drew             | 2019-10-05 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Anna Drew             | 2019-10-19 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Brian Kaylie          | 2019-09-14 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Brian Kaylie          | 2019-10-05 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Brian Kaylie          | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Brian Kaylie          | 2019-09-14 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Brian Kaylie          | 2019-09-21 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Brian Kaylie          | 2019-10-19 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Brian Van Hilst       | 2019-09-28 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Brian Van Hilst       | 2019-09-28 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Brian Van Hilst       | 2019-09-14 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Brian Van Hilst       | 2019-09-21 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Brian Van Hilst       | 2019-09-14 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Brian Van Hilst       | 2019-10-05 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Burrell Brian         | 2019-10-05 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Burrell Brian         | 2019-09-21 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Burrell Brian         | 2019-10-12 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Burrell Brian         | 2019-09-14 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Burrell Brian         | 2019-09-14 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Burrell Brian         | 2019-09-28 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Charlie Stoneman      | 2019-09-21 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Charlie Stoneman      | 2019-09-28 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Charlie Stoneman      | 2019-09-21 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Charlie Stoneman      | 2019-09-14 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Charlie Stoneman      | 2019-10-05 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Charlie Stoneman      | 2019-09-14 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Charlie Van Hilst     | 2019-09-21 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Charlie Van Hilst     | 2019-09-14 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Charlie Van Hilst     | 2019-09-14 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Charlie Van Hilst     | 2019-10-12 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Charlie Van Hilst     | 2019-10-05 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Charlie Van Hilst     | 2019-09-28 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| David Burrell         | 2019-09-28 09:00:00 |     0 | Eels     | Sam Joshua       |
+| David Burrell         | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| David Burrell         | 2019-10-19 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| David Burrell         | 2019-10-05 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| David Burrell         | 2019-10-19 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| David Burrell         | 2019-09-14 09:00:00 |     0 | Porpoise | Sam Mark         |
+| David Drew            | 2019-09-21 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| David Drew            | 2019-09-28 09:00:00 |     1 | Eels     | Sam Joshua       |
+| David Drew            | 2019-10-12 09:00:00 |     1 | Porpoise | Sam Mark         |
+| David Drew            | 2019-10-19 09:00:00 |     0 | Otters   | Charlie Amber    |
+| David Drew            | 2019-09-14 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| David Drew            | 2019-10-05 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| David Joshua          | 2019-09-21 09:00:00 |     0 | Porpoise | Sam Mark         |
+| David Joshua          | 2019-09-28 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| David Joshua          | 2019-09-21 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| David Joshua          | 2019-09-14 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| David Joshua          | 2019-09-28 09:00:00 |     1 | Otters   | Charlie Amber    |
+| David Joshua          | 2019-09-14 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| David Stoneman        | 2019-10-05 09:00:00 |     0 | Otters   | Charlie Amber    |
+| David Stoneman        | 2019-09-21 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| David Stoneman        | 2019-09-14 09:00:00 |     1 | Eels     | Sam Joshua       |
+| David Stoneman        | 2019-09-21 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| David Stoneman        | 2019-09-28 09:00:00 |     1 | Porpoise | Sam Mark         |
+| David Stoneman        | 2019-09-14 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Davis Kaylie          | 2019-09-28 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Davis Kaylie          | 2019-10-12 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Davis Kaylie          | 2019-09-14 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Davis Kaylie          | 2019-09-14 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Davis Kaylie          | 2019-09-21 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Davis Kaylie          | 2019-10-05 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Davis Sam             | 2019-09-28 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Davis Sam             | 2019-09-28 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Davis Sam             | 2019-09-21 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Davis Sam             | 2019-09-14 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Davis Sam             | 2019-10-05 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Davis Sam             | 2019-09-14 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Drew Drew             | 2019-09-14 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Drew Drew             | 2019-09-21 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Drew Drew             | 2019-09-28 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Drew Drew             | 2019-09-14 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Drew Drew             | 2019-09-28 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Drew Drew             | 2019-09-21 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Drew Heather          | 2019-09-14 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Drew Heather          | 2019-09-28 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Drew Heather          | 2019-10-05 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Drew Heather          | 2019-09-21 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Drew Heather          | 2019-09-14 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Drew Heather          | 2019-09-21 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Drew Prieur           | 2019-10-05 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Drew Prieur           | 2019-10-12 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Drew Prieur           | 2019-09-21 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Drew Prieur           | 2019-09-14 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Drew Prieur           | 2019-09-28 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Drew Prieur           | 2019-10-19 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Grobmeir Charlie      | 2019-09-28 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Grobmeir Charlie      | 2019-09-14 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Grobmeir Charlie      | 2019-09-28 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Grobmeir Charlie      | 2019-09-14 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Grobmeir Charlie      | 2019-09-21 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Grobmeir Charlie      | 2019-09-21 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Grobmeir Kaylie       | 2019-09-28 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Grobmeir Kaylie       | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Grobmeir Kaylie       | 2019-09-14 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Grobmeir Kaylie       | 2019-10-05 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Grobmeir Kaylie       | 2019-10-19 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Grobmeir Kaylie       | 2019-10-19 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Heather Mike          | 2019-10-05 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Heather Mike          | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Heather Mike          | 2019-09-28 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Heather Mike          | 2019-10-19 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Heather Mike          | 2019-10-19 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Heather Mike          | 2019-09-14 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Joshua Amber          | 2019-09-21 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Joshua Amber          | 2019-09-14 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Joshua Amber          | 2019-09-14 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Joshua Amber          | 2019-10-19 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Joshua Amber          | 2019-10-05 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Joshua Amber          | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Joshua Drew           | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Joshua Drew           | 2019-10-05 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Joshua Drew           | 2019-09-14 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Joshua Drew           | 2019-10-19 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Joshua Drew           | 2019-10-19 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Joshua Drew           | 2019-09-28 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Joshua Heather        | 2019-09-14 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Joshua Heather        | 2019-09-28 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Joshua Heather        | 2019-09-14 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Joshua Heather        | 2019-09-21 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Joshua Heather        | 2019-10-05 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Joshua Heather        | 2019-09-21 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Jousha Van Hilst      | 2019-09-21 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Jousha Van Hilst      | 2019-09-28 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Jousha Van Hilst      | 2019-09-14 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Jousha Van Hilst      | 2019-10-05 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Jousha Van Hilst      | 2019-09-28 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Jousha Van Hilst      | 2019-09-14 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Kaylie Kaylie         | 2019-09-14 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Kaylie Kaylie         | 2019-09-14 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Kaylie Kaylie         | 2019-10-19 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Kaylie Kaylie         | 2019-09-21 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Kaylie Kaylie         | 2019-10-05 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Kaylie Kaylie         | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Kaylie Seiwert        | 2019-09-14 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Kaylie Seiwert        | 2019-10-12 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Kaylie Seiwert        | 2019-09-21 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Kaylie Seiwert        | 2019-10-05 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Kaylie Seiwert        | 2019-09-28 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Kaylie Seiwert        | 2019-09-14 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Lillian Anna          | 2019-09-21 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Lillian Anna          | 2019-09-14 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Lillian Anna          | 2019-09-28 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Lillian Anna          | 2019-10-05 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Lillian Anna          | 2019-10-12 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Lillian Anna          | 2019-10-19 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Mark Heather          | 2019-10-19 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Mark Heather          | 2019-09-28 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Mark Heather          | 2019-10-19 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Mark Heather          | 2019-10-05 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Mark Heather          | 2019-09-14 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Mark Heather          | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Mark Lillian          | 2019-10-05 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Mark Lillian          | 2019-10-12 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Mark Lillian          | 2019-10-19 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Mark Lillian          | 2019-09-21 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Mark Lillian          | 2019-09-28 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Mark Lillian          | 2019-09-14 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Mike Drew             | 2019-09-14 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Mike Drew             | 2019-09-14 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Mike Drew             | 2019-10-05 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Mike Drew             | 2019-09-21 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Mike Drew             | 2019-09-14 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Mike Drew             | 2019-09-21 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Mike Drew             | 2019-09-21 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Mike Drew             | 2019-09-28 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Mike Drew             | 2019-09-21 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Mike Drew             | 2019-09-14 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Mike Drew             | 2019-10-05 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Mike Drew             | 2019-09-28 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Mike Grobmeir         | 2019-10-05 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Mike Grobmeir         | 2019-10-12 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Mike Grobmeir         | 2019-09-14 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Mike Grobmeir         | 2019-09-28 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Mike Grobmeir         | 2019-09-28 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Mike Grobmeir         | 2019-09-14 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Mike Grobmeir         | 2019-10-05 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Mike Grobmeir         | 2019-09-21 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Mike Grobmeir         | 2019-09-28 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Mike Grobmeir         | 2019-09-14 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Mike Grobmeir         | 2019-09-14 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Mike Grobmeir         | 2019-09-21 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Prieur Prieur         | 2019-09-21 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Prieur Prieur         | 2019-09-28 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Prieur Prieur         | 2019-10-12 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Prieur Prieur         | 2019-09-14 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Prieur Prieur         | 2019-09-14 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Prieur Prieur         | 2019-10-05 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Sam Burrell           | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Sam Burrell           | 2019-10-05 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Sam Burrell           | 2019-10-19 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Sam Burrell           | 2019-09-21 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Sam Burrell           | 2019-09-14 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Sam Burrell           | 2019-09-14 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Sam Charlie           | 2019-09-14 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Sam Charlie           | 2019-10-19 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Sam Charlie           | 2019-09-21 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Sam Charlie           | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Sam Charlie           | 2019-09-14 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Sam Charlie           | 2019-10-05 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Sam Mark              | 2019-09-14 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Sam Mark              | 2019-10-05 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Sam Mark              | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Sam Mark              | 2019-09-21 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Sam Mark              | 2019-10-19 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Sam Mark              | 2019-09-14 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Sam Mark              | 2019-10-19 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Sam Mark              | 2019-10-05 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Sam Mark              | 2019-09-28 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Sam Mark              | 2019-09-21 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Sam Mark              | 2019-09-28 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Sam Mark              | 2019-09-14 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Sam Prieur            | 2019-09-21 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Sam Prieur            | 2019-09-28 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Sam Prieur            | 2019-09-14 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Sam Prieur            | 2019-09-14 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Sam Prieur            | 2019-09-21 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Sam Prieur            | 2019-10-05 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Sam Sam               | 2019-09-28 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Sam Sam               | 2019-09-21 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Sam Sam               | 2019-09-21 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Sam Sam               | 2019-09-28 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Sam Sam               | 2019-09-14 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Sam Sam               | 2019-09-14 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Sam Seiwert           | 2019-09-14 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Sam Seiwert           | 2019-10-12 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Sam Seiwert           | 2019-09-28 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Sam Seiwert           | 2019-09-21 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Sam Seiwert           | 2019-10-05 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Sam Seiwert           | 2019-09-14 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Scarbarough Seiwert   | 2019-09-14 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Scarbarough Seiwert   | 2019-09-28 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Scarbarough Seiwert   | 2019-09-14 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Scarbarough Seiwert   | 2019-09-28 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Scarbarough Seiwert   | 2019-09-21 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Scarbarough Seiwert   | 2019-10-05 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Scarbarough Van Hilst | 2019-10-19 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Scarbarough Van Hilst | 2019-10-12 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Scarbarough Van Hilst | 2019-09-14 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Scarbarough Van Hilst | 2019-09-28 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Scarbarough Van Hilst | 2019-10-05 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Scarbarough Van Hilst | 2019-09-21 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Seiwert Davis         | 2019-09-21 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Seiwert Davis         | 2019-09-28 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Seiwert Davis         | 2019-10-12 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Seiwert Davis         | 2019-10-05 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Seiwert Davis         | 2019-09-14 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Seiwert Davis         | 2019-10-19 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Seiwert Marriot       | 2019-10-19 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Seiwert Marriot       | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Seiwert Marriot       | 2019-09-14 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Seiwert Marriot       | 2019-10-19 09:00:00 |     1 | Sharks   | Mike Burrell     |
+| Seiwert Marriot       | 2019-09-28 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Seiwert Marriot       | 2019-10-05 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Seiwert Mike          | 2019-09-14 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Seiwert Mike          | 2019-09-21 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Seiwert Mike          | 2019-09-28 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Seiwert Mike          | 2019-09-14 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Seiwert Mike          | 2019-09-21 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Seiwert Mike          | 2019-09-28 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Stoneman Brian        | 2019-09-21 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Stoneman Brian        | 2019-09-14 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Stoneman Brian        | 2019-09-14 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Stoneman Brian        | 2019-09-28 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Stoneman Brian        | 2019-09-21 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Stoneman Brian        | 2019-09-28 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Stoneman Kaylie       | 2019-09-28 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Stoneman Kaylie       | 2019-10-19 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Stoneman Kaylie       | 2019-10-05 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Stoneman Kaylie       | 2019-09-14 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Stoneman Kaylie       | 2019-09-21 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Stoneman Kaylie       | 2019-09-14 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Stoneman Prieur       | 2019-09-14 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Stoneman Prieur       | 2019-09-28 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Stoneman Prieur       | 2019-09-14 09:00:00 |     1 | Salmon   | Burrell Prieur   |
+| Stoneman Prieur       | 2019-09-21 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Stoneman Prieur       | 2019-09-21 09:00:00 |     0 | Porpoise | Sam Mark         |
+| Stoneman Prieur       | 2019-09-28 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Van Hilst Anna        | 2019-10-05 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Van Hilst Anna        | 2019-09-28 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Van Hilst Anna        | 2019-09-14 09:00:00 |     1 | Otters   | Charlie Amber    |
+| Van Hilst Anna        | 2019-09-14 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Van Hilst Anna        | 2019-09-21 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Van Hilst Anna        | 2019-10-12 09:00:00 |     0 | Sharks   | Mike Burrell     |
+| Van Hilst Grobmeir    | 2019-09-28 09:00:00 |     1 | Eels     | Sam Joshua       |
+| Van Hilst Grobmeir    | 2019-10-05 09:00:00 |     0 | Salmon   | Burrell Prieur   |
+| Van Hilst Grobmeir    | 2019-09-14 09:00:00 |     1 | Whales   | Lillian Stoneman |
+| Van Hilst Grobmeir    | 2019-09-21 09:00:00 |     0 | Pirhanas | Davis Davis      |
+| Van Hilst Grobmeir    | 2019-10-12 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Van Hilst Grobmeir    | 2019-10-19 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Van Hilst Van Hilst   | 2019-09-21 09:00:00 |     1 | Pirhanas | Davis Davis      |
+| Van Hilst Van Hilst   | 2019-09-14 09:00:00 |     1 | Porpoise | Sam Mark         |
+| Van Hilst Van Hilst   | 2019-09-28 09:00:00 |     0 | Whales   | Lillian Stoneman |
+| Van Hilst Van Hilst   | 2019-09-14 09:00:00 |     0 | Eels     | Sam Joshua       |
+| Van Hilst Van Hilst   | 2019-09-28 09:00:00 |     0 | Otters   | Charlie Amber    |
+| Van Hilst Van Hilst   | 2019-10-05 09:00:00 |     1 | Sharks   | Mike Burrell     |
++-----------------------+---------------------+-------+----------+------------------+
+336 rows in set (0.01 sec)
+
+mysql> source soccer_down.sql
+Query OK, 0 rows affected (0.01 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
++-----------------------+
+| Tables_in_burrelm1_db |
++-----------------------+
+| class_schedule        |
+| classes               |
+| customers             |
+| friends               |
+| myhomes               |
+| pet                   |
+| receipts              |
+| students              |
++-----------------------+
+8 rows in set (0.00 sec)
+
+mysql> exit
+Bye
+sh-4.2$ exit
+exit
+
+Script done on Sun 29 Sep 2019 10:51:59 AM MST
