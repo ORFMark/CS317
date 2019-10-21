@@ -6,7 +6,9 @@ INNER JOIN (SELECT game.arrival as arrival, schedule.is_host AS snack, team.id a
             INNER JOIN schedule on schedule.game_id = game.id)
             INNER JOIN team on team.id = schedule.team_id)
             ) AS temp ON roster.team_id = temp.team_id)
+            WHERE participant.first_name = "Amber" and participant.last_name = "Marriot"
             ORDER BY participant.id DESC;
+             
 
 
 SELECT  participant.first_name as first, participant.last_name as last, game.arrival as arrival, schedule.is_host AS snack, 
@@ -19,7 +21,10 @@ CONCAT(COALESCE(visitor.team_name, ''), COALESCE(host.team_name, '')) as against
                         as visitor ON visitor.id != team.id AND visitor.game_id = game.id AND schedule.is_host = 1)
             LEFT JOIN (SELECT schedule.game_id, team.id, team.team_name FROM (schedule INNER JOIN team on team.id = schedule.team_id) WHERE is_host = 1)
                         as host ON host.id != team.id AND host.game_id = game.id AND schedule.is_host = 0)
-            ORDER BY game.arrival ASC;  
+            WHERE participant.first_name = "Amber" and participant.last_name = "Marriot"
+            ORDER BY game.arrival ASC;
+
+
 
 SELECT CONCAT(tb1.first, ' ', tb1.last) as player, tb1.arrival, tb1.snack, tb1.against, tb2.lead_by FROM ((SELECT  participant.first_name as first, participant.last_name as last, game.arrival as arrival, schedule.is_host AS snack, CONCAT(COALESCE(visitor.team_name, ''), COALESCE(host.team_name, '')) as against FROM ((((((game
             INNER JOIN schedule on schedule.game_id = game.id)
@@ -30,9 +35,11 @@ SELECT CONCAT(tb1.first, ' ', tb1.last) as player, tb1.arrival, tb1.snack, tb1.a
                         as visitor ON visitor.id != team.id AND visitor.game_id = game.id AND schedule.is_host = 1)
             LEFT JOIN (SELECT schedule.game_id, team.id, team.team_name FROM (schedule INNER JOIN team on team.id = schedule.team_id) WHERE is_host = 1)
                         as host ON host.id != team.id AND host.game_id = game.id AND schedule.is_host = 0)
+                        WHERE participant.first_name = "Amber" and participant.last_name = "Marriot"
             ORDER BY game.arrival ASC) as tb1
 INNER JOIN (SELECT team.team_name, CONCAT(participant.first_name, ' ', participant.last_name) as lead_by FROM team 
             INNER JOIN participant on participant.id = team.coach_id) as tb2 ON tb1.against = tb2.team_name) 
+            
 ORDER BY player ASC;
 
 
