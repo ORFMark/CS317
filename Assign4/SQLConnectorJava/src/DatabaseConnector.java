@@ -6,6 +6,7 @@ import java.sql.Statement;
 
 public class DatabaseConnector {
 	private Connection database;
+	private Statement smt;
 	DatabaseConnector() {
 		String connectionUrl = "jdbc:mysql://prclab1.erau.edu:3306/burrelm1_db";
 		try {
@@ -32,7 +33,6 @@ public class DatabaseConnector {
 	}
 
 	public ResultSet runQuery(String query) {
-		Statement smt = null;
 		ResultSet rs = null;
 		try {
 			if(database != null && !database.isClosed()) {
@@ -45,9 +45,15 @@ public class DatabaseConnector {
 			rs = null;
 		}
 		return rs;
-	}
-	
+	}	
 	public void close() {
+		if(smt != null) {
+			try {
+				smt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		if(database != null) {
 			try {
 			  database.close();
@@ -55,6 +61,7 @@ public class DatabaseConnector {
 				e.printStackTrace();
 			}
 		}
+		
 	}
 
 }
