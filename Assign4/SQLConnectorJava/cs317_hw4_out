@@ -1,0 +1,40 @@
+Successfully connected to prclab
+Part 1: printing team names
+---------------------
+Team names
+--------------
+Sharks
+Whales
+Pirhanas
+Eels
+Salmon
+Porpoise
+Otters
+Part 1: printing team names using a prodcedure
+---------------------
+Team names
+--------------
+Sharks
+Whales
+Pirhanas
+Eels
+Salmon
+Porpoise
+Otters
+Enter the player's first name: Amber
+Enter the player's last name: Marriot
+Part 3: printing a player's team name
+---------------------
+Player      |   team
+-----------------------
+Amber Marriot | Salmon
+Part 4: printing a player's schedule
+---------------------
+| player        | arrival             | snack | against  | lead_by          |
+-----------------------
+Amber Marriot | 2019-10-05 09:00:00 | 1 | Sharks | Mike Burrell
+Amber Marriot | 2019-09-28 09:00:00 | 0 | Whales | Lillian Stoneman
+Amber Marriot | 2019-09-21 09:00:00 | 1 | Pirhanas | Davis Davis
+Amber Marriot | 2019-09-14 09:00:00 | 0 | Eels | Sam Joshua
+Amber Marriot | 2019-09-14 09:00:00 | 1 | Porpoise | Sam Mark
+Amber Marriot | 2019-09-28 09:00:00 | 0 | Otters | Charlie Amber

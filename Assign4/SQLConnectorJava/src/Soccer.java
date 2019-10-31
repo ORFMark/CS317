@@ -71,6 +71,26 @@ public class Soccer {
 			}
 		}
 	}
+	
+	public void printPlayerSchedule(String first, String last) {
+		String Query = "CALL playerSchedule(\"" + first + "\", \"" + last + "\");";
+		ResultSet rs = conn.runQuery(Query);
+		int count = 0;
+		try {
+			System.out.println("| player        | arrival             | snack | against  | lead_by          |\n-----------------------");
+			while (rs.next()) {
+				System.out.println(rs.getString("player") + " | " + rs.getString("arrival") + " | " + rs.getString("snack") 
+			+ " | " + rs.getString("against") + " | " + rs.getString("lead_by"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+			}
+		}
+	}
 
 	public void destroy() {
 		if (conn != null) {
