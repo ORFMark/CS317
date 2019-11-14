@@ -56,7 +56,6 @@ public class Soccer {
 	public void printPlayerTeam(String first, String last) {
 		String Query = "CALL teamnamesPlayer(\"" + first + "\", \"" + last + "\");";
 		ResultSet rs = conn.runQuery(Query);
-		int count = 0;
 		try {
 			System.out.println("Player      |   team\n-----------------------");
 			while (rs.next()) {
@@ -75,7 +74,6 @@ public class Soccer {
 	public void printPlayerSchedule(String first, String last) {
 		String Query = "CALL playerSchedule(\"" + first + "\", \"" + last + "\");";
 		ResultSet rs = conn.runQuery(Query);
-		int count = 0;
 		try {
 			System.out.println("| player        | arrival             | snack | against  | lead_by          |\n-----------------------");
 			while (rs.next()) {
